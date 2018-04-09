@@ -76,12 +76,14 @@ public class members extends Fragment {
                 .progress(true, 0)
                 .show();
         mate.setCanceledOnTouchOutside(false);
+
         baseurl=getString(R.string.base_url);
         Log.v("Supratim","In the member activity");
         SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(getActivity());
         roleid=sp.getInt("role",-1);
         materialDesignFAM = (FloatingActionMenu)view.findViewById(R.id.fabmenu);
         addproctore = (FloatingActionButton)view.findViewById(R.id.addproctore);
+        //addproctore = (FloatingActionButton)view.findV(R.id.addproctore);
         addfaculty = (FloatingActionButton)view.findViewById(R.id.addfaculty);
         addstudentmember = (FloatingActionButton)view.findViewById(R.id.addstudentmember);
 
@@ -152,13 +154,12 @@ public class members extends Fragment {
                                                 //  Log.v("Error","Network Failure");
                                                 Log.v("Checking","Network Failure");
                                                 Toast.makeText(getActivity(),"Network Failure",Toast.LENGTH_SHORT).show();
-                                                /*cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
-                                                Snackbar sn=Snackbar.make(cl, "Network Failure", Snackbar.LENGTH_LONG);
+                                                //cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
+                                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
                                                 sn.setActionTextColor(Color.MAGENTA);
                                                 View sbView = sn.getView();
                                                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
                                                 sn.show();
-                                               */
                                                // mate.dismiss();
                                             }
                                         });
@@ -203,15 +204,15 @@ public class members extends Fragment {
 
                                                         String message=jo.getString("message");
                                                         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT);
-                                                    /*
-                                                    cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
 
-                                                    Snackbar sn=Snackbar.make(cl, message, Snackbar.LENGTH_LONG);
+                                                 //   cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
+
+                                                    Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), message, Snackbar.LENGTH_LONG);
                                                     sn.setActionTextColor(Color.MAGENTA);
                                                     View sbView = sn.getView();
                                                     sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
                                                     sn.show();
-                                                    */
+
                                                     md.dismiss();
 
                                                     //   wait = 0;
@@ -284,13 +285,13 @@ public class members extends Fragment {
                                                 //  Log.v("Error","Network Failure");
                                                 Log.v("Checking","Network Failure");
                                                 Toast.makeText(getActivity(),"Network Failure",Toast.LENGTH_SHORT).show();
-                                              /*  cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
-                                                Snackbar sn=Snackbar.make(cl, "Network Failure", Snackbar.LENGTH_LONG);
+                                              //  cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
+                                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
                                                 sn.setActionTextColor(Color.MAGENTA);
                                                 View sbView = sn.getView();
                                                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
                                                 sn.show();
-                                                */
+
                                                 //  mate.dismiss();
                                             }
                                         });
@@ -335,13 +336,13 @@ public class members extends Fragment {
 
                                                     String message=jo.getString("message");
                                                     Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT);
-                                                   /* cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
-                                                    Snackbar sn=Snackbar.make(cl, message, Snackbar.LENGTH_LONG);
+                                                   // cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
+                                                    Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), message, Snackbar.LENGTH_LONG);
                                                     sn.setActionTextColor(Color.MAGENTA);
                                                     View sbView = sn.getView();
                                                     sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
                                                     sn.show();
-                                                    */
+
                                                     md.dismiss();
 
                                                     //   wait = 0;
@@ -415,13 +416,13 @@ public class members extends Fragment {
                                                 //  Log.v("Error","Network Failure");
                                                 Log.v("Checking","Network Failure");
                                                 Toast.makeText(getActivity(),"Network Failure",Toast.LENGTH_SHORT).show();
-                                              /*  cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
-                                                Snackbar sn=Snackbar.make(cl, "Network Failure", Snackbar.LENGTH_LONG);
+                                              //  cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
+                                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
                                                 sn.setActionTextColor(Color.MAGENTA);
                                                 View sbView = sn.getView();
                                                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
                                                 sn.show();
-                                                */
+
                                             }
                                         });
                                     }
@@ -465,13 +466,13 @@ public class members extends Fragment {
 
                                                     String message=jo.getString("message");
                                                     Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT);
-                                                   /* cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
-                                                    Snackbar sn=Snackbar.make(cl, message, Snackbar.LENGTH_LONG);
+                                                   // cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
+                                                    Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), message, Snackbar.LENGTH_LONG);
                                                     sn.setActionTextColor(Color.MAGENTA);
                                                     View sbView = sn.getView();
                                                     sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
                                                     sn.show();
-                                                    */
+
                                                     md.dismiss();
 
                                                     //   wait = 0;
@@ -512,16 +513,16 @@ public class members extends Fragment {
                             @Override
                             public void run() {
                                 Log.v("Network Error","Error In Network");
-                                Toast.makeText(getActivity(),"Network Failure",Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getActivity(),"Network Failure",Toast.LENGTH_SHORT).show();
                                 //Snackbar.make(lm,"sdasdsa",Snackbar.LENGTH_SHORT).show();
-                                /*cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
-                                Snackbar sn=Snackbar.make(cl, "Network Failure", Snackbar.LENGTH_LONG);
+                                //cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
+                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
                                 sn.setActionTextColor(Color.MAGENTA);
                                 View sbView = sn.getView();
                                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
                                 sn.show();
                                 mate.dismiss();
-                                */
+
                             }
                         });
                     }
@@ -589,8 +590,5 @@ public class members extends Fragment {
         th.start();
         return view;
     }
-    public void add_authoity()
-    {
 
-    }
 }

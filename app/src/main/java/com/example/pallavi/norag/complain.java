@@ -108,9 +108,9 @@ String requesturl,data,s1;
                             @Override
                             public void run() {
                                 Log.v("Error","Network Failure");
-                                Toast.makeText(getActivity(), "Network Failure", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getActivity(), "Network Failure", Toast.LENGTH_LONG).show();
 
-                                Snackbar sn=Snackbar.make(view.findViewById(R.id.layout), "Network Failure", Snackbar.LENGTH_LONG);
+                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
                                 sn.setActionTextColor(Color.MAGENTA);
                                 View sbView = sn.getView();
                                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));

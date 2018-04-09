@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/coordinatorlayout"
+    tools:context="com.example.pallavi.norag.members">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -14,7 +22,7 @@
         >
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/rmv"
             android:stackFromBottom="true"
             />
@@ -43,8 +51,8 @@
         fab:menu_fab_label=""
         fab:menu_fab_size="normal"
         fab:menu_icon="@drawable/fab_add"
-        fab:menu_labels_colorNormal="#333"
-        fab:menu_labels_colorPressed="#444"
+        fab:menu_labels_colorNormal="#26c6da"
+        fab:menu_labels_colorPressed="#26c6da"
         fab:menu_labels_colorRipple="#66efecec"
         fab:menu_labels_cornerRadius="3dp"
         fab:menu_labels_ellipsize="none"
@@ -56,22 +64,28 @@
         fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
         fab:menu_labels_showShadow="true"
         fab:menu_labels_singleLine="false"
-        fab:menu_labels_textColor="#f2f1f1"
+        fab:menu_labels_textColor="#e91193"
+
         fab:menu_labels_textSize="15sp"
         fab:menu_openDirection="up"
         fab:menu_shadowColor="#66aff198"
         fab:menu_shadowRadius="4dp"
         fab:menu_shadowXOffset="1dp"
         fab:menu_shadowYOffset="4dp"
-        fab:menu_showShadow="true">
+        fab:menu_showShadow="true"
+      >
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/addproctore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/committee_member"
+            app:fab_colorNormal="#e91193"
+            app:fab_colorPressed="#e91193"
+            app:fab_colorRipple="#e91193"
 
             fab:fab_label="Add Proctore"
+
             fab:fab_size="normal" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -80,7 +94,9 @@
             android:layout_height="wrap_content"
             android:src="@drawable/committee_member"
             fab:fab_label="Add Faculty"
-
+            app:fab_colorNormal="#e91193"
+            app:fab_colorPressed="#e91193"
+            app:fab_colorRipple="#e91193"
 
             fab:fab_size="normal" />
 
@@ -88,9 +104,15 @@
             android:id="@+id/addstudentmember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:src="@drawable/committee_member"
+            app:fab_colorNormal="#e91193"
+            app:fab_colorPressed="#e91193"
+            app:fab_colorRipple="#e91193"
+
             fab:fab_label="Add Student member"
             fab:fab_size="normal" />
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>
 </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>

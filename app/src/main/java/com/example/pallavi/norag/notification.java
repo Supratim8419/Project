@@ -94,13 +94,13 @@ public class notification extends Fragment {
                             @Override
                             public void run() {
                               Toast.makeText(getActivity(),"Network Error",Toast.LENGTH_LONG).show();
-                            /*    cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
-                                Snackbar sn=Snackbar.make(cl, "Network Failure", Snackbar.LENGTH_LONG);
+                        //    cl=(CoordinatorLayout)view.findViewById(R.id.coordinatorlayout);
+                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
                                 sn.setActionTextColor(Color.MAGENTA);
                                 View sbView = sn.getView();
                                 sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
                                 sn.show();
-                              */
+
                                 mate.dismiss();
                             }
                         });

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -27,9 +28,17 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v13.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.LayoutInflaterCompat;
+import android.support.v4.view.ViewGroupCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +51,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.zip.Inflater;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -192,7 +202,13 @@ public class SensorService extends Service implements SensorEventListener, Locat
                         public void onFailure(Call call, IOException e) {
 
                             Log.v("Check Error","Failure");
-
+                            Student st=new Student();
+                            //Snackbar sn=Snackbar.make(st.getActivity().findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                            Snackbar sn=Snackbar.make(Student.layout,"Network Failure", Snackbar.LENGTH_LONG);
+                            sn.setActionTextColor(Color.MAGENTA);
+                            View sbView = sn.getView();
+                            sbView.setBackgroundColor(ContextCompat.getColor(st.getActivity(), R.color.myblue));
+                            sn.show();
 
 
                         }
@@ -214,6 +230,11 @@ public class SensorService extends Service implements SensorEventListener, Locat
                                 Log.v("The success message is ",""+successmessage);
 
 
+                                Snackbar sn=Snackbar.make(Student.layout,successmessage, Snackbar.LENGTH_LONG);
+                                sn.setActionTextColor(Color.MAGENTA);
+                                View sbView = sn.getView();
+                                sbView.setBackgroundColor(ContextCompat.getColor(getApplication(), R.color.myblue));
+                                sn.show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 //      wait=0;

@@ -2,10 +2,13 @@ package com.example.pallavi.norag;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -132,7 +135,13 @@ public class About extends Fragment {
                        getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getActivity(), "Network Failure", Toast.LENGTH_LONG).show();
+                               // Toast.makeText(getActivity(), "Network Failure", Toast.LENGTH_LONG).show();
+                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
+                                sn.setActionTextColor(Color.MAGENTA);
+                                View sbView = sn.getView();
+                                sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
+                                sn.show();
+
                                 wait = 0;
                             }
                         });
@@ -298,11 +307,18 @@ public class About extends Fragment {
                                     getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(getActivity(), "client request not sent", Toast.LENGTH_LONG).show();
+                                           // Toast.makeText(getActivity(), "client request not sent", Toast.LENGTH_LONG).show();
+                                            Log.v("ON FAILURE", "NEW CALLBACK FAILURE");
+                                            Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                            sn.setActionTextColor(Color.MAGENTA);
+                                            View sbView = sn.getView();
+                                            sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
+                                            sn.show();
+
                                             wait = 0;
                                         }
                                     });
-                                    Log.v("ON FAILURE", "NEW CALLBACK FAILURE");
+
                                 }
 
                                 @Override
@@ -395,6 +411,11 @@ public class About extends Fragment {
                                                     //addresstxt.setText(address);
                                                 }
                                                 save.setVisibility(View.GONE);
+                                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout),"Record Updated Successfully", Snackbar.LENGTH_LONG);
+                                                sn.setActionTextColor(Color.MAGENTA);
+                                                View sbView = sn.getView();
+                                                sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
+                                                sn.show();
 
                                                 wait = 0;
                                             }
@@ -486,7 +507,12 @@ public class About extends Fragment {
                                                         getActivity().runOnUiThread(new Runnable() {
                                                             @Override
                                                             public void run() {
-                                                                Toast.makeText(getActivity(),"Some Network Failure Happened",Toast.LENGTH_SHORT);
+                                                               // Toast.makeText(getActivity(),"Some Network Failure Happened",Toast.LENGTH_SHORT);
+                                                                Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                                                sn.setActionTextColor(Color.MAGENTA);
+                                                                View sbView = sn.getView();
+                                                                sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
+                                                                sn.show();
                                                                 md.dismiss();
                                                                 wait=0;
                                                             }
@@ -530,13 +556,23 @@ public class About extends Fragment {
                                                                     if (response==1)
                                                                     {
                                                                         String message=jo.getString("message");
-                                                                        Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT);
+                                                                        //Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT);
+                                                                        Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout),message, Snackbar.LENGTH_LONG);
+                                                                        sn.setActionTextColor(Color.MAGENTA);
+                                                                        View sbView = sn.getView();
+                                                                        sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
+                                                                        sn.show();
                                                                         md.dismiss();
                                                                     }
                                                                     else if (response==2)
                                                                     {
                                                                         String message=jo.getString("message");
-                                                                        Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT);
+                                                                      //  Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT);
+                                                                        Snackbar sn=Snackbar.make(view.findViewById(R.id.coordinatorlayout),message, Snackbar.LENGTH_LONG);
+                                                                        sn.setActionTextColor(Color.MAGENTA);
+                                                                        View sbView = sn.getView();
+                                                                        sbView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.myblue));
+                                                                        sn.show();
                                                                         md.dismiss();
 
                                                                     }

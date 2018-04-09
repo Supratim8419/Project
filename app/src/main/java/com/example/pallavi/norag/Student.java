@@ -42,11 +42,13 @@ public class Student extends Fragment{
     JSONObject jsonObject;
     LocationManager locationManager;
     String mprovider;
+    static ViewGroup layout ;  //define it globally
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view= inflater.inflate(R.layout.activity_student_, container, false);
+        layout = (ViewGroup) view.findViewById(R.id.coordinatorlayout);
         Log.v("Check Error", "In the student activity");
         Toast.makeText(getActivity(), "Shake Here Hard", Toast.LENGTH_SHORT);
         Intent newintent = new Intent(getActivity(), SensorService.class);

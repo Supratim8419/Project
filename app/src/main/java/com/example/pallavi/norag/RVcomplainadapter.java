@@ -231,7 +231,7 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
 
                                             //Toast.makeText(main,message,Toast.LENGTH_SHORT).show();
                                             //cl=(CoordinatorLayout)rv.findViewById(R.id.coordinatorlayout);
-                                            Snackbar sn=Snackbar.make(main.findViewById(R.id.layout), message, Snackbar.LENGTH_LONG);
+                                            Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), message, Snackbar.LENGTH_LONG);
                                             sn.setActionTextColor(Color.MAGENTA);
                                             View sbView = sn.getView();
                                             sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
@@ -296,14 +296,14 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                                         main.runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Toast.makeText(main,"Network Failure",Toast.LENGTH_SHORT).show();
-                                               /* cl=(CoordinatorLayout)rv.findViewById(R.id.coordinatorlayout);
-                                                Snackbar sn=Snackbar.make(cl, "Network Failure", Snackbar.LENGTH_LONG);
+                                                //Toast.makeText(main,"Network Failure",Toast.LENGTH_SHORT).show();
+                                               // cl=(CoordinatorLayout)rv.findViewById(R.id.coordinatorlayout);
+                                                Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
                                                 sn.setActionTextColor(Color.MAGENTA);
                                                 View sbView = sn.getView();
                                                 sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
                                                 sn.show();
-                                                */
+
                                                 //     wait=true;
                                             }
                                         });
@@ -331,7 +331,11 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
 
                                                     holder.status.setText(status);
                                                     //int unlikeqbtn=0;
-
+                                                    Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Status Successfully updated", Snackbar.LENGTH_LONG);
+                                                    sn.setActionTextColor(Color.MAGENTA);
+                                                    View sbView = sn.getView();
+                                                    sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
+                                                    sn.show();
                                                     //cd.add(i,new carddata(userpic2,id,quserid,ques,questionaskname,nooflike,noofunlike,noofanswers,statuslike,statusunlike,sessionuserid,follow,editqbtn,likeqbtn,unlikeqbtn));
                                                     //rvad.addelement(new cardcomplaindata(cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
                                                     // c.add(0,new cardcomplaindata(cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
@@ -482,13 +486,13 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                                 main.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                       Toast.makeText(main,"Network Failure",Toast.LENGTH_LONG).show();
+                                       //Toast.makeText(main,"Network Failure",Toast.LENGTH_LONG).show();
                                         //cl=(CoordinatorLayout)rv.findViewById(R.id.coordinatorlayout);
-                                        /*Snackbar sn=Snackbar.make(cl, "Network Failure", Snackbar.LENGTH_LONG);
+                                        Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Network Failure", Snackbar.LENGTH_LONG);
                                         sn.setActionTextColor(Color.MAGENTA);
                                         View sbView = sn.getView();
                                         sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
-                                        sn.show();*/
+                                        sn.show();
                                     }
                                 });
                             }
@@ -534,6 +538,11 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
+                                        Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Complain Share Successfully", Snackbar.LENGTH_LONG);
+                                        sn.setActionTextColor(Color.MAGENTA);
+                                        View sbView = sn.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
+                                        sn.show();
                                         rvad=new RVcomplainadapter(c,main);
                                         notifyItemRangeChanged(0,c.size());
                                         //  rv.setAdapter(rvad);

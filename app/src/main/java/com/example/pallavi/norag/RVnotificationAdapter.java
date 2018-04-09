@@ -107,15 +107,15 @@ public class RVnotificationAdapter extends RecyclerView.Adapter<RVnotificationAd
                                 main.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(main,"Network Failure",Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(main,"Network Failure",Toast.LENGTH_LONG).show();
                                        // cl=(CoordinatorLayout)rv.findViewById(R.id.coordinatorlayout);
-                                       /*
-                                       Snackbar sn=Snackbar.make(cl, "Network Error", Snackbar.LENGTH_LONG);
+
+                                       Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Network Error", Snackbar.LENGTH_LONG);
                                         sn.setActionTextColor(Color.MAGENTA);
                                         View sbView = sn.getView();
                                         sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
                                         sn.show();
-                                */
+
                                     }
                                 });
                             }
@@ -126,14 +126,14 @@ public class RVnotificationAdapter extends RecyclerView.Adapter<RVnotificationAd
                                 main.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(main,"Successfully deleted",Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(main,"Successfully deleted",Toast.LENGTH_LONG).show();
                                        // cl=(CoordinatorLayout)findViewById(R.id.coordinatorlayout);
-                                       /* Snackbar sn=Snackbar.make(cl, "Successfully deleted", Snackbar.LENGTH_LONG);
+                                        Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Successfully deleted", Snackbar.LENGTH_LONG);
                                         sn.setActionTextColor(Color.MAGENTA);
                                         View sbView = sn.getView();
                                         sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
                                         sn.show();
-                                        */
+
                                         removeAt(position);
                                     }
                                 });
