@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:background="@drawable/gradient">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner"
+        android:clipToPadding="false"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="4dp"
+        android:layout_weight="1"
+        android:id="@+id/cav"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+               <!-- <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_height="50dp"
+                        android:layout_width="50dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/complainimageButton"
+                        android:scaleType="fitCenter"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="false"
+                        android:src="@drawable/g"
+                        android:layout_alignParentEnd="false"
+                        android:background="#000000" />
+                </RelativeLayout>-->
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="name"
+                        android:id="@+id/complainusername"
+                        android:layout_toRightOf="@+id/imageButton"
+                        android:layout_toEndOf="@+id/imageButton"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:gravity="center"
+                    >
+
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:visibility="gone"
+                    android:id="@+id/cid" />
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    >
+                    <!--<ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_delete_black_24dp"
+                        android:id="@+id/adeletebtn"
+
+                        />-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <RelativeLayout
+                                     android:layout_width="0dp"
+                                     android:layout_height="wrap_content"
+                                     android:layout_weight="1"
+                                     android:gravity="center"
+                                     >
+                             <LinearLayout
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="horizontal"
+                                 >
+                                 <RelativeLayout
+                                     android:layout_width="0dp"
+                                     android:layout_weight="1"
+                                     android:layout_height="wrap_content"
+                                     android:gravity="center"
+                                     >
+                                 <TextView
+                                 android:id="@+id/status"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:text="Status"
+                                     android:layout_alignParentTop="true"
+                                     android:layout_alignParentStart="true" />
+                                 </RelativeLayout>
+                                 <RelativeLayout
+                                     android:layout_width="0dp"
+                                     android:layout_height="wrap_content"
+                                     android:layout_weight="1"
+                                     android:gravity="center"
+                                     >
+                                     <Spinner
+                                         android:id="@+id/spinnerstatus"
+                                         android:layout_width="wrap_content"
+                                         android:layout_height="wrap_content"
+                                         android:background="@drawable/ic_arrow_drop_down_black_24dp"
+
+                                         android:entries="@array/status"
+
+                                         >
+
+                                     </Spinner>
+                                     <ImageButton
+                                         android:layout_width="wrap_content"
+                                         android:layout_weight="1"
+
+                                         android:layout_height="wrap_content"
+                                         android:id="@+id/deletecomplain"
+                                         android:src="@drawable/ic_delete_black_24dp"
+                                         android:layout_alignParentTop="true"
+                                         android:layout_centerHorizontal="true" />
+                                   </RelativeLayout>
+
+                             </LinearLayout>
+                                 </RelativeLayout>
+            </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/statustxt"
+                                    android:text="Status Is"
+                                    />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+
+
+
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/complaintxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Complain is" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Share"
+                        android:id="@+id/sharetv"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Vote it"
+                        android:id="@+id/votetv"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Open in Map"
+                        android:id="@+id/openmaptv"
+
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/authoritylayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    >
+
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/sharebtn"
+                        android:src="@drawable/ic_share_black_24dp"
+                        android:scaleType="fitXY"
+                        android:background="#0000"
+                        android:padding="5dp"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        >
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/votebtn"
+                        android:src="@drawable/ic_star_black_24dp"
+                        android:scaleType="fitXY"
+                        android:background="#0000"
+                        android:padding="5dp"
+
+                        android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        >
+                    <Spinner
+                        android:id="@+id/spinnervote"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_arrow_drop_down_black_24dp"
+
+                        android:entries="@array/numbers"
+
+                        >
+
+                    </Spinner>
+                    </RelativeLayout>
+                </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    >
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/mapbtn"
+                        android:src="@drawable/ic_my_location_black_24dp"
+                        android:scaleType="fitXY"
+                        android:padding="5dp"
+                        android:background="#0000"
+
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="26dp"
+                        android:layout_marginEnd="26dp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
