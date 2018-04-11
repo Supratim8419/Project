@@ -140,6 +140,7 @@ public class notification extends Fragment {
                                        if (roleid==1) {
                                             nsid = jsonObject.getInt("nsid");
                                             sid = jsonObject.getInt("sid");
+
                                        }
                                         else if(roleid==2)
                                        {
@@ -147,10 +148,11 @@ public class notification extends Fragment {
                                             sid = jsonObject.getInt("aid");
                                        }
                                            String notification=jsonObject.getString("notification");
+                                            String date=jsonObject.getString("date");
                                         //int noofnotification=jsonObject.getInt("noofnotification");
 
                                         //cd.add(i,new carddata(userpic2,id,quserid,ques,questionaskname,nooflike,noofunlike,noofanswers,statuslike,statusunlike,sessionuserid,follow,editqbtn,likeqbtn,unlikeqbtn));
-                                        cnd.add(i,new cardnotificationdata(nsid,sid,notification));
+                                        cnd.add(i,new cardnotificationdata(nsid,sid,notification,date));
                                     } catch (Exception e) {
                                         e.printStackTrace();
 

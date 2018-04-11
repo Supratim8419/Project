@@ -15,6 +15,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.example.pallavi.norag.Introduction"
         tools:showIn="@layout/app_bar_introduction"
+        android:id="@+id/ll"
         android:orientation="vertical">
 
         <TextView

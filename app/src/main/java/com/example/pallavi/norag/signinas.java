@@ -33,7 +33,7 @@ public class signinas extends AppCompatActivity {
                     // find the radiobutton by returned id
                     radioButton = (RadioButton) findViewById(selectedId);
                     String troleas=radioButton.getText().toString();
-                    if (troleas.equalsIgnoreCase("proctore"))
+                    if (troleas.equalsIgnoreCase("proctor"))
                         roleasid=1;
                     else if (troleas.equalsIgnoreCase("faculty"))
                         roleasid=2;

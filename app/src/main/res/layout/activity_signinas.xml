@@ -42,7 +42,7 @@
                 android:id="@+id/proctore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Proctore"
+                android:text="Proctor"
                 android:textColor="#e91193"
                 android:textSize="40sp"
                 android:paddingTop="10dp"

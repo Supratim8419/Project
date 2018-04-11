@@ -8,8 +8,11 @@ package com.example.pallavi.norag;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -133,7 +136,12 @@ public class AuthorityLogin extends AppCompatActivity {
                                     AuthorityLogin.this.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(AuthorityLogin.this, "Network Failure", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(AuthorityLogin.this, "Network Failure", Toast.LENGTH_SHORT).show();
+                                            Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                            sn.setActionTextColor(Color.MAGENTA);
+                                            View sbView = sn.getView();
+                                            sbView.setBackgroundColor(ContextCompat.getColor(AuthorityLogin.this, R.color.myblue));
+                                            sn.show();
                                             wait = 0;
                                         }
                                     });
@@ -173,23 +181,29 @@ public class AuthorityLogin extends AppCompatActivity {
                                         public void run() {
 
                                             try {
-                                                SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(AuthorityLogin.this);
-                                                SharedPreferences.Editor ed=sp.edit();
-                                                userid=Integer.parseInt(String.valueOf(jo.getInt("sessionid")));
-                                                ed.putInt("authoritysessionid",userid);
-                                                ed.commit();
+
 // SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                                                 //sessionid=sp.getInt("sessionid",-1);
                                                 response_data = Integer.parseInt(String.valueOf(jo.getInt("return_status")));
                                                 if (response_data == 1) {
-                                                    Toast.makeText(AuthorityLogin.this, "You have logged in successfully..Please wait till the page is redirected to home page", Toast.LENGTH_SHORT).show();
+                                                    //Toast.makeText(AuthorityLogin.this, "You have logged in successfully..Please wait till the page is redirected to home page", Toast.LENGTH_SHORT).show();
                                                     //Intent intent=new Intent("com.example.pallavi.chat_app.Chat");
+                                                    SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(AuthorityLogin.this);
+                                                    SharedPreferences.Editor ed=sp.edit();
+                                                    userid=Integer.parseInt(String.valueOf(jo.getInt("sessionid")));
+                                                    ed.putInt("authoritysessionid",userid);
+                                                    ed.commit();
                                                     Intent intent=new Intent(AuthorityLogin.this,Introduction.class);
                                                     intent.putExtra("code",1);
                                                     startActivity(intent);
                                                     AuthorityLogin.this.finish();
                                                 } else if (response_data == 2) {
-                                                    Toast.makeText(AuthorityLogin.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                                                    //Toast.makeText(AuthorityLogin.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                                                    Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Password does not match", Snackbar.LENGTH_LONG);
+                                                    sn.setActionTextColor(Color.MAGENTA);
+                                                    View sbView = sn.getView();
+                                                    sbView.setBackgroundColor(ContextCompat.getColor(AuthorityLogin.this, R.color.myblue));
+                                                    sn.show();
                                                 }
                                                 wait = 0;
                                             } catch (JSONException e1) {

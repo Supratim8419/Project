@@ -92,13 +92,10 @@ String requesturl,data,s1;
         Thread th=new Thread(new Runnable() {
             @Override
             public void run() {
-                final OkHttpClient client = Utils.getClient(getActivity());
+                final OkHttpClient client = new OkHttpClient();
 
                 final Request request = new Request.Builder()
                         .url(requesturl)
-                        .cacheControl(new CacheControl.Builder()
-                                .maxStale(365, TimeUnit.DAYS)
-                                .build())
                         .post(RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), data))
                         .build();
                 client.newCall(request).enqueue(new Callback() {

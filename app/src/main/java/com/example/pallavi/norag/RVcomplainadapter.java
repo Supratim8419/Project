@@ -185,9 +185,10 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
         holder.deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // int newcid=c.get(position).cid;
-                int newcid=Integer.valueOf(holder.cid.getText().toString());
+                int newcid=c.get(position).cid;
+               // int newcid=Integer.valueOf(holder.cid.getText().toString());
                 data = "{\"cid\":\"" + newcid + "\",\"sessionid\":\"" + sessionid + "\"}";
+                Log.v("Requested data is",data);
                 requesturl=baseurl+"deletecomplain/";
                 Thread th=new Thread(new Runnable() {
                     @Override

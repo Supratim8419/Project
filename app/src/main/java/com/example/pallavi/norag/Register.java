@@ -1,6 +1,9 @@
 package com.example.pallavi.norag;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -92,8 +95,13 @@ public class Register extends AppCompatActivity {
                                                 @Override
                                                 public void run() {
                                                     //Log.v("ON FAILURE ", "CLIENT REQUEST NOT SENT ");
-                                                    Toast.makeText(Register.this, "Network Failure", Toast.LENGTH_LONG).show();
-                                                   e.printStackTrace();
+                                                  //  Toast.makeText(Register.this, "Network Failure", Toast.LENGTH_LONG).show();
+                                                    Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                                    sn.setActionTextColor(Color.MAGENTA);
+                                                    View sbView = sn.getView();
+                                                    sbView.setBackgroundColor(ContextCompat.getColor(Register.this, R.color.myblue));
+                                                    sn.show();
+                                                    e.printStackTrace();
                                                 }
                                             });
 
@@ -119,10 +127,23 @@ public class Register extends AppCompatActivity {
                                                     try {
                                                         int statusResponse = Integer.parseInt(String.valueOf(jo.getInt("response_data")));
                                                         if (statusResponse == 1)
-                                                            Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_LONG).show();
+                                                        //    Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_LONG).show();
+                                                        {
+                                                            Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Registration done successfully", Snackbar.LENGTH_LONG);
+                                                            sn.setActionTextColor(Color.MAGENTA);
+                                                            View sbView = sn.getView();
+                                                            sbView.setBackgroundColor(ContextCompat.getColor(Register.this, R.color.myblue));
+                                                            sn.show();
+                                                        }
                                                         else if (statusResponse == 2)
-                                                            Toast.makeText(Register.this, "password not matched", Toast.LENGTH_SHORT).show();
-
+                                                           // Toast.makeText(Register.this, "password not matched", Toast.LENGTH_SHORT).show();
+                                                        {
+                                                            Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Password does not match", Snackbar.LENGTH_LONG);
+                                                            sn.setActionTextColor(Color.MAGENTA);
+                                                            View sbView = sn.getView();
+                                                            sbView.setBackgroundColor(ContextCompat.getColor(Register.this, R.color.myblue));
+                                                            sn.show();
+                                                        }
 
 
                                                     } catch (JSONException e) {

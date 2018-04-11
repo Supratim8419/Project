@@ -47,7 +47,18 @@
                     android:paddingStart="5dp"
                     android:text="name"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
+                <!--<TextView
+                    android:id="@+id/notificationdate"
+                    android:layout_width="0dp"
 
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/imageButton"
+                    android:layout_toRightOf="@+id/imageButton"
+                    android:layout_weight="4"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="5dp"
+                    android:text="Date"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />-->
                 <ImageButton
                     android:id="@+id/delnotification"
                     android:layout_width="0dp"

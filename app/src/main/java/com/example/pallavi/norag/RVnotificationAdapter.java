@@ -69,6 +69,7 @@ public class RVnotificationAdapter extends RecyclerView.Adapter<RVnotificationAd
         baseurl=main.getString(R.string.base_url);
         holder.notification.setText(c.get(position).notification);
         holder.nsid.setText(String.valueOf(c.get(position).nsid));
+        //holder.date.setText(String.valueOf(c.get(position).date));
         holder.delbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +159,7 @@ public class RVnotificationAdapter extends RecyclerView.Adapter<RVnotificationAd
         CardView cv;
         TextView notification;
         TextView nsid;
+        TextView date;
         ImageButton delbtn;
 
         public PersonViewHolder(View itemView) {
@@ -168,7 +170,7 @@ public class RVnotificationAdapter extends RecyclerView.Adapter<RVnotificationAd
             notification=(TextView)itemView.findViewById(R.id.notificationmessage);
             nsid=(TextView)itemView.findViewById(R.id.nid);
             delbtn=(ImageButton)itemView.findViewById(R.id.delnotification);
-
+            //date=(TextView)itemView.findViewById(R.id.notificationdate);
 
 
         }

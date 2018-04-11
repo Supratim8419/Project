@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.cast.framework.IntroductoryOverlay;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Introduction extends AppCompatActivity
@@ -74,6 +75,11 @@ public class Introduction extends AppCompatActivity
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+            Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"You have logged in successfully..", Snackbar.LENGTH_SHORT);
+            sn.setActionTextColor(Color.MAGENTA);
+            View sbView = sn.getView();
+            sbView.setBackgroundColor(ContextCompat.getColor(this, R.color.myblue));
+            sn.show();
         }
         else if (code==2) {
             Fragment fragment = new complain();

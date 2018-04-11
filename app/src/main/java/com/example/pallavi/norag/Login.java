@@ -8,10 +8,12 @@ package com.example.pallavi.norag;
 
         import android.content.Intent;
         import android.content.SharedPreferences;
+        import android.graphics.Color;
         import android.os.Bundle;
         import android.preference.PreferenceManager;
         import android.support.design.widget.CoordinatorLayout;
         import android.support.design.widget.Snackbar;
+        import android.support.v4.content.ContextCompat;
         import android.support.v7.app.AppCompatActivity;
         import android.util.Log;
         import android.view.View;
@@ -127,7 +129,12 @@ public class Login extends AppCompatActivity {
                                         Login.this.runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                Toast.makeText(Login.this, "Network Failure", Toast.LENGTH_SHORT).show();
+                                              //  Toast.makeText(Login.this, "Network Failure", Toast.LENGTH_SHORT).show();
+                                                Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                                sn.setActionTextColor(Color.MAGENTA);
+                                                View sbView = sn.getView();
+                                                sbView.setBackgroundColor(ContextCompat.getColor(Login.this, R.color.myblue));
+                                                sn.show();
                                                 wait = 0;
                                             }
                                         });
@@ -152,40 +159,44 @@ public class Login extends AppCompatActivity {
                                         }
                                         Log.v("THE JSON OBJ IS CREATED", s1);
 
-                                        final String s2 = s1.substring(s1.indexOf('[') + 1, s1.length() - 1);
+                                        //  final String s2 = s1.substring(s1.indexOf('[') + 1, s1.length() - 1);
                                         //s1.substring(s1.indexOf('[')+1, s1.length() - 1);
 
                                         try {
-                                            jo = new JSONObject(s2);
+                                            jo = new JSONObject(s1);
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
-
                                         Login.this.runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
 
                                                 try {
-                                                    SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(Login.this);
-                                                    SharedPreferences.Editor ed=sp.edit();
-                                                    userid=Integer.parseInt(String.valueOf(jo.getInt("sessionid")));
-                                                    ed.putInt("studentsessionid",userid);
-                                                    ed.commit();
-// SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                                                    //sessionid=sp.getInt("sessionid",-1);
+
+
                                                     response_data = Integer.parseInt(String.valueOf(jo.getInt("return_status")));
                                                     if (response_data == 1) {
                                                        //
-                                                        Toast.makeText(Login.this, "You have logged in successfully..Please wait till the page is redirected to home page", Toast.LENGTH_SHORT).show();
+                                                      //  Toast.makeText(Login.this, "You have logged in successfully..Please wait till the page is redirected to home page", Toast.LENGTH_SHORT).show();
 
+                                                        SharedPreferences sp= PreferenceManager.getDefaultSharedPreferences(Login.this);
+                                                        SharedPreferences.Editor ed=sp.edit();
+                                                        userid=Integer.parseInt(String.valueOf(jo.getInt("sessionid")));
+                                                        ed.putInt("studentsessionid",userid);
+                                                        ed.commit();
 
                                                         Intent intent=new Intent(Login.this,Introduction.class);
                                                         intent.putExtra("code",1);
                                                         startActivity(intent);
                                                         Login.this.finish();
                                                     } else if (response_data == 2) {
-                                                        Toast.makeText(Login.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                                                        //Toast.makeText(Login.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                                                        Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Password does not match", Snackbar.LENGTH_LONG);
+                                                        sn.setActionTextColor(Color.MAGENTA);
+                                                        View sbView = sn.getView();
+                                                        sbView.setBackgroundColor(ContextCompat.getColor(Login.this, R.color.myblue));
+                                                        sn.show();
                                                     }
                                                     wait = 0;
                                                 } catch (JSONException e1) {
