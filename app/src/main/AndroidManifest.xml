@@ -97,7 +97,9 @@
         <service
             android:name=".SensorService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:stopWithTask="true"
+            />
 
         <receiver android:name=".shakeit">
             <intent-filter>

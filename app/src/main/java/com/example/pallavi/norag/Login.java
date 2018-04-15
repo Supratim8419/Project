@@ -72,6 +72,7 @@ public class Login extends AppCompatActivity {
             Intent introductionpage=new Intent(Login.this,Introduction.class);
             introductionpage.putExtra("code",1);
             startActivity(introductionpage);
+            Login.this.finish();
         }
     }
 

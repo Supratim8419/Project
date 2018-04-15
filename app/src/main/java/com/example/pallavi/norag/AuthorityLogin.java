@@ -65,6 +65,7 @@ public class AuthorityLogin extends AppCompatActivity {
             //Intent intent=new Intent(Login.this,Introduction.class);
             introductionpage.putExtra("code",1);
             startActivity(introductionpage);
+            AuthorityLogin.this.finish();
         }
 
     }

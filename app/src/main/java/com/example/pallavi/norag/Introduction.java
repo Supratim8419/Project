@@ -100,6 +100,7 @@ public class Introduction extends AppCompatActivity
         // mprovider = locationManager.getBestProvider(criteria, false);
         //mprovider=locationManager.NETWORK_PROVIDER;
         mprovider = locationManager.PASSIVE_PROVIDER;
+
         Log.v("Error Mprovider", mprovider.toString());
 
         if (mprovider != null && !mprovider.equals("")) {
@@ -401,7 +402,7 @@ public void onTokenRefresh() {
                 ed.commit();
                 Intent loginpage=new Intent(Introduction.this,AuthorityLogin.class);
                 startActivity(loginpage);
-                finish();
+                Introduction.this.finish();
             }
             else if (roleid==1)
             {
@@ -412,7 +413,7 @@ public void onTokenRefresh() {
                 ed.commit();
                 Intent loginpage=new Intent(Introduction.this,Login.class);
                 startActivity(loginpage);
-                finish();
+                Introduction.this.finish();
             }
         }
 

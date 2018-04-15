@@ -41,6 +41,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.MapFragment;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Request;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -274,6 +275,8 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                 if (userSelect)
                 {
                     String newstatus = holder.spinnerstatus.getSelectedItem().toString();
+                   // String newstatus=holder.spinnerstatus.getOnItemSelectedListener().toString();
+                    //String newstatus="";
                     int cid=c.get(position).cid;
                     Log.v("Status",newstatus);
 
@@ -630,8 +633,10 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
         //TextView noofanswer;
         ImageView personPhoto;
         TextView complainusername,sharetv,votetv,openmaptv;
-        Spinner spinnerstatus,spinnervote;
+        Spinner spinnervote;
+        Spinner spinnerstatus;
         TextView status;
+        //MaterialBetterSpinner spinnerstatus;
        TextView complain;
         ImageButton sharebtn,mapbtn,deletebtn;
         TextView cid;
@@ -653,6 +658,8 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
             sharetv=(TextView)itemView.findViewById(R.id.sharetv);
             openmaptv=(TextView)itemView.findViewById(R.id.openmaptv);
             votetv=(TextView)itemView.findViewById(R.id.votetv);
+          //   spinnerstatus= (MaterialBetterSpinner)
+           //         itemView.findViewById(R.id.spinnerstatus);
             //ll=(LinearLayout)itemView.findViewById(R.id.authoritylayout);
             //qid=(TextView)itemView.findViewById(R.id.qid);
             // answerbutton=(ImageButton)itemView.findViewById(R.id.answerButton);

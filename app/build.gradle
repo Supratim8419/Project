@@ -47,7 +47,7 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.6.1'
     compile 'com.github.clans:fab:1.6.2'
     compile 'com.github.ar-android:DrawRouteMaps:1.0.0'
-
+    compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
   //  compile 'com.devlomi.record-view:record-view:1.2.2beta'
     testCompile 'junit:junit:4.12'
 }

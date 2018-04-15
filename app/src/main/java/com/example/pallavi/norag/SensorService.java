@@ -81,6 +81,7 @@ public class SensorService extends Service implements SensorEventListener, Locat
     String mprovider;
     Location location;
     Float latitude,longitude;
+    String additionaltext;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -95,8 +96,14 @@ public class SensorService extends Service implements SensorEventListener, Locat
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, mAccelerometer,
                 SensorManager.SENSOR_DELAY_UI, new Handler());
-        active = false;
 
+        active = false;
+        additionaltext=intent.getStringExtra("helptext");
+        if (additionaltext==null)
+            additionaltext="";
+
+        //additionaltext=intent.getExtras().getString("helptext");
+        Log.v("Sensor additional Text",additionaltext);
 
         return START_STICKY;
 
@@ -118,7 +125,7 @@ public class SensorService extends Service implements SensorEventListener, Locat
         baseurl=getString(R.string.base_url);
 
 
-        if (mAccel > 11) {
+        if (mAccel > 13) {
             //showNotification();
             active=true;
             Log.v("Check","Sensor is working fine");
@@ -172,82 +179,94 @@ public class SensorService extends Service implements SensorEventListener, Locat
                 sessionid=sp.getInt("studentsessionid",-1);
             }
             //float latitude=0.1;
+            //additionaltext=sp.getString("helptext","");
+            //Intent newintent = new Intent(getApplicationContext(), SensorService.class);
+            //additionaltext=newintent.getExtras().getString("helptext");
+            Log.v("Sensor additional Text","ad");
+
+
             String attachment="No attachment";
-            String text="Help Me Authority";
+            String text="Help Me Authority "+additionaltext;
             //latitude= Float.parseFloat(String.valueOf(location.getLatitude()));
             //longitude=Float.parseFloat(String.valueOf(location.getLongitude()));
             Log.v("Sensor","Dialogue Box is working fine");
             //String message="{\"text\":"+ text+",\"attachment\":"+attachment +"}";
+            //sp = PreferenceManager.getDefaultSharedPreferences(Introduction.this);
             sp = PreferenceManager.getDefaultSharedPreferences(SensorService.this);
             latitude=sp.getFloat("sourcelatitude",0);
             longitude=sp.getFloat("sourcelongitude",0);
             Log.v("Location Service",latitude.toString()+" "+longitude.toString());
 
             data = "{\"text\":\"" + text + "\",\"attachment\":\"" + attachment + "\",\"latitude\":\"" + latitude + "\",\"longitude\":\"" + longitude + "\",\"sessionid\":\"" + sessionid + "\"}";
-
-           Thread th=new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("Thread",data);
-
-                    OkHttpClient client=new OkHttpClient();
-                    Request request=new Request.Builder()
-                            .url(requesturl)
-                            .post(RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),data))
-                            .build();
-
-
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-
-                            Log.v("Check Error","Failure");
-                            Student st=new Student();
-                            //Snackbar sn=Snackbar.make(st.getActivity().findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
-                            Snackbar sn=Snackbar.make(Student.layout,"Network Failure", Snackbar.LENGTH_LONG);
-                            sn.setActionTextColor(Color.MAGENTA);
-                            View sbView = sn.getView();
-                            sbView.setBackgroundColor(ContextCompat.getColor(st.getActivity(), R.color.myblue));
-                            sn.show();
+            if (wait==0)
+            {
+                Thread th=new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("Thread",data);
+                        wait=1;
+                        OkHttpClient client=new OkHttpClient();
+                        Request request=new Request.Builder()
+                                .url(requesturl)
+                                .post(RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),data))
+                                .build();
 
 
-                        }
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
 
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            jsonresponse =response.body().string();
-                            Log.v("Check Error","Code Works till here in on Response");
-                            Log.v("The new jsonresponse is", jsonresponse);
-                            try {
-                                jsonObject=new JSONObject(jsonresponse);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                String successmessage=jsonObject.getString("message");
-                                int returnstatus=jsonObject.getInt("return_status");
-                                Log.v("The success message is ",""+successmessage);
-
-
-                                Snackbar sn=Snackbar.make(Student.layout,successmessage, Snackbar.LENGTH_LONG);
+                                Log.v("Check Error","Failure");
+                                wait=0;
+                                Student st=new Student();
+                                //Snackbar sn=Snackbar.make(st.getActivity().findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                Snackbar sn=Snackbar.make(Student.layout,"Network Failure", Snackbar.LENGTH_LONG);
                                 sn.setActionTextColor(Color.MAGENTA);
                                 View sbView = sn.getView();
-                                sbView.setBackgroundColor(ContextCompat.getColor(getApplication(), R.color.myblue));
+                                sbView.setBackgroundColor(ContextCompat.getColor(st.getActivity(), R.color.myblue));
                                 sn.show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                //      wait=0;
+
+
+
                             }
 
-                          //  FirebaseMessaging.getInstance().subscribeToTopic("student");
-                          //  FirebaseMessaging.getInstance().subscribeToTopic("authority");
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                jsonresponse =response.body().string();
+                                Log.v("Check Error","Code Works till here in on Response");
+                                Log.v("The new jsonresponse is", jsonresponse);
+                                try {
+                                    jsonObject=new JSONObject(jsonresponse);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
-                        }
-                    });
-                }
-            });
-            th.start();
+                                try {
+                                    String successmessage=jsonObject.getString("message");
+                                    int returnstatus=jsonObject.getInt("return_status");
+                                    Log.v("The success message is ",""+successmessage);
+
+
+                                    Snackbar sn=Snackbar.make(Student.layout,successmessage, Snackbar.LENGTH_LONG);
+                                    sn.setActionTextColor(Color.MAGENTA);
+                                    View sbView = sn.getView();
+                                    sbView.setBackgroundColor(ContextCompat.getColor(getApplication(), R.color.myblue));
+                                    sn.show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                          wait=0;
+                                }
+
+                                //  FirebaseMessaging.getInstance().subscribeToTopic("student");
+                                //  FirebaseMessaging.getInstance().subscribeToTopic("authority");
+
+                            }
+                        });
+                    }
+                });
+                th.start();
+            }
+
 
         }
 

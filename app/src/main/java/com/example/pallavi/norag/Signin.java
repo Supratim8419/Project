@@ -57,9 +57,11 @@ public class Signin extends AppCompatActivity {
                     if (roleid == 1) {
                         Intent studentlogin = new Intent(Signin.this, Login.class);
                         startActivity(studentlogin);
+                        Signin.this.finish();
                     } else if (roleid == 2) {
                         Intent authoritylogin = new Intent(Signin.this, signinas.class);
                         startActivity(authoritylogin);
+                        Signin.this.finish();
                     }
                     //Toast.makeText(Signin.this, radioButton.getText(), Toast.LENGTH_SHORT).show();
                 }

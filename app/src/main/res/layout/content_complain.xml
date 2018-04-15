@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/tools"
     android:clipToPadding="false"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:padding="2dp"
@@ -145,6 +146,15 @@
                                          >
 
                                      </Spinner>
+                                     <!--<com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                                         android:id="@+id/spinnerstatus"
+                                         android:layout_width="wrap_content"
+                                         android:layout_height="wrap_content"
+                                         android:hint="Material Design Spinner"
+                                         android:textColorHint="#05ab9a"
+                                         app:met_floatingLabel="normal"
+                                         android:entries="@array/status"
+                                         />-->
                                      <ImageButton
                                          android:layout_width="wrap_content"
                                          android:layout_weight="1"
