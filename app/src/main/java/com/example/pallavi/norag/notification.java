@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -81,11 +82,17 @@ public class notification extends Fragment {
             @Override
             public void run() {
 
-                OkHttpClient client=new OkHttpClient();
+               OkHttpClient client=new OkHttpClient();
+                //int cacheSize = 10 * 1024 * 1024;
+              //  OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                //        .cache(new Cache(getActivity().getCacheDir(), cacheSize));
+                //OkHttpClient client=new OkHttpClient();
+
                 Log.d("The request of data is ",data);
                 Request request = new Request.Builder()
                         .url(requesturl)
                         .post(RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),data))
+                        //.get()
                         .build();
                 client.newCall(request).enqueue(new Callback() {
                     @Override

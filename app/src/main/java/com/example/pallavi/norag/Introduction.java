@@ -11,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -96,10 +97,12 @@ public class Introduction extends AppCompatActivity
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
+        //criteria.setSpeedRequired(true);
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
         Log.v("Error Location Manager", locationManager.toString());
-        // mprovider = locationManager.getBestProvider(criteria, false);
+         mprovider = locationManager.getBestProvider(criteria, false);
         //mprovider=locationManager.NETWORK_PROVIDER;
-        mprovider = locationManager.PASSIVE_PROVIDER;
+        //mprovider = locationManager.PASSIVE_PROVIDER;
 
         Log.v("Error Mprovider", mprovider.toString());
 
@@ -111,8 +114,8 @@ public class Introduction extends AppCompatActivity
             } else {
 
                 //   location = locationManager.getLastKnownLocation(mprovider);
-                locationManager.requestLocationUpdates(mprovider, 1500000, 1, this);
-
+                //locationManager.requestLocationUpdates(mprovider, 1500000, 1, this);
+                locationManager.requestSingleUpdate(mprovider,this, Looper.myLooper());
                 location = locationManager.getLastKnownLocation(mprovider);
 
                 Log.v("Error Location", "" + location);
@@ -122,6 +125,7 @@ public class Introduction extends AppCompatActivity
                     onLocationChanged(location);
                     sourcelatitude = Float.parseFloat(String.valueOf(location.getLatitude()));
                     sourcelongitude = Float.parseFloat(String.valueOf(location.getLongitude()));
+
 
                 } else if (location == null)
                 // Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
@@ -157,6 +161,7 @@ public class Introduction extends AppCompatActivity
         Log.v("Error longitude", "" + sourcelongitude);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(Introduction.this);
         SharedPreferences.Editor ed = sharedPrefs.edit();
+
         ed.putFloat("sourcelatitude", sourcelatitude);
         ed.putFloat("sourcelongitude", sourcelongitude);
         ed.commit();
@@ -242,7 +247,9 @@ public class Introduction extends AppCompatActivity
                 if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                locationManager.requestLocationUpdates(mprovider, 1500000, 1, this);
+                //locationManager.requestLocationUpdates(mprovider, 1500000, 1, this);
+                locationManager.requestSingleUpdate(mprovider,this, Looper.getMainLooper());
+                //location = locationManager.getLastKnownLocation(mprovider);
                 location = locationManager.getLastKnownLocation(mprovider);
 
                 Log.v("Error Location", "" + location);
@@ -269,7 +276,12 @@ public class Introduction extends AppCompatActivity
                                     startActivity(intent);
 
                                 }
-                            }).show();
+                            }).negativeText("NO").onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            md.dismiss();
+                        }
+                    }).show();
 
                 }
 
