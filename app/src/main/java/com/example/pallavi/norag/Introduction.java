@@ -24,6 +24,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -57,6 +58,9 @@ public class Introduction extends AppCompatActivity
     float sourcelatitude, sourcelongitude;
     NavigationView navigationView, navigationView1;
     MaterialDialog md, mdl;
+    //FusedLocationProviderClient mFusedLocationClient;
+    boolean enablingGPS=false;
+    MaterialDialog loading;
     CoordinatorLayout cl;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -67,7 +71,10 @@ public class Introduction extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         code = getIntent().getExtras().getInt("code");
 
-
+        loading = new MaterialDialog.Builder(this).progress(true, 0)
+                .content("Fetching location...Please wait...")
+                .autoDismiss(false)
+                .build();
 
         if (code==1) {
             Fragment fragment = new Home();
@@ -94,77 +101,8 @@ public class Introduction extends AppCompatActivity
         roleid = sp.getInt("role", -1);
       //  Toast.makeText(this, "sdas " + roleid, Toast.LENGTH_SHORT).show();
 
+        getLocation();
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        //criteria.setSpeedRequired(true);
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        Log.v("Error Location Manager", locationManager.toString());
-         mprovider = locationManager.getBestProvider(criteria, false);
-        //mprovider=locationManager.NETWORK_PROVIDER;
-        //mprovider = locationManager.PASSIVE_PROVIDER;
-
-        Log.v("Error Mprovider", mprovider.toString());
-
-        if (mprovider != null && !mprovider.equals("")) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 5);
-
-            } else {
-
-                //   location = locationManager.getLastKnownLocation(mprovider);
-                //locationManager.requestLocationUpdates(mprovider, 1500000, 1, this);
-                locationManager.requestSingleUpdate(mprovider,this, Looper.myLooper());
-                location = locationManager.getLastKnownLocation(mprovider);
-
-                Log.v("Error Location", "" + location);
-
-
-                if (location != null) {
-                    onLocationChanged(location);
-                    sourcelatitude = Float.parseFloat(String.valueOf(location.getLatitude()));
-                    sourcelongitude = Float.parseFloat(String.valueOf(location.getLongitude()));
-
-
-                } else if (location == null)
-                // Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
-                {
-                    Log.v("Error ", "No location Found");
-                    md=new MaterialDialog.Builder(this)
-                            .title("Turn On GPS Location")
-                            .content("To Turn on GPS location press Yes or if you already had turned on then please wait for sometime")
-                            .positiveText("YES")
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(MaterialDialog dialog, DialogAction which) {
-                                    // TODO
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivity(intent);
-
-                                }
-                            }).negativeText("NO").onNegative(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    md.dismiss();
-                                }
-                            }).show();
-                    md.setCanceledOnTouchOutside(false);
-
-                }
-            }
-
-        }
-
-
-        Log.v("Error latitude", "" + sourcelatitude);
-        Log.v("Error longitude", "" + sourcelongitude);
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(Introduction.this);
-        SharedPreferences.Editor ed = sharedPrefs.edit();
-
-        ed.putFloat("sourcelatitude", sourcelatitude);
-        ed.putFloat("sourcelongitude", sourcelongitude);
-        ed.commit();
 
         if (roleid == 1) {
             hideAuthorityMenuItem();
@@ -221,6 +159,82 @@ public class Introduction extends AppCompatActivity
 
     }
 
+    public void getLocation(){
+        loading.show();
+        loading.setCanceledOnTouchOutside(false);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setSpeedRequired(true);
+        //criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+
+        Log.v("Error Location Manager", locationManager.toString());
+        mprovider = locationManager.getBestProvider(criteria, false);
+        //mprovider=locationManager.NETWORK_PROVIDER;
+        //mprovider = locationManager.PASSIVE_PROVIDER;
+
+        Log.v("Error Mprovider", mprovider.toString());
+
+        if (mprovider != null && !mprovider.equals("")) {
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                loading.dismiss();
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 5);
+
+
+
+            } else {
+                if(locationManager.isProviderEnabled(mprovider)){
+                    location = locationManager.getLastKnownLocation(mprovider);
+                    if(location == null)
+                        locationManager.requestSingleUpdate(mprovider,this, Looper.myLooper());
+                    //
+                    else {
+                        //TODO Save location
+                        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(Introduction.this);
+                        SharedPreferences.Editor ed = sharedPrefs.edit();
+
+                        ed.putFloat("sourcelatitude", sourcelatitude);
+                        ed.putFloat("sourcelongitude", sourcelongitude);
+                        ed.commit();
+                        loading.dismiss();
+
+                    }
+
+                }
+                else{
+                    Log.v("Error ", "No location Found");
+                    loading.dismiss();
+                    md=new MaterialDialog.Builder(this)
+                            .title("Turn On GPS Location")
+                            .content("To Turn on GPS location press Ok")
+                            .positiveText("OK")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(MaterialDialog dialog, DialogAction which) {
+                                    // TODO
+                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    enablingGPS=true;
+                                    startActivity(intent);
+
+                                }
+                            }).show();
+                    md.setCanceledOnTouchOutside(false);
+                }
+            }
+
+        }
+
+
+        Log.v("Error latitude", "" + sourcelatitude);
+        Log.v("Error longitude", "" + sourcelongitude);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(Introduction.this);
+        SharedPreferences.Editor ed = sharedPrefs.edit();
+
+        ed.putFloat("sourcelatitude", sourcelatitude);
+        ed.putFloat("sourcelongitude", sourcelongitude);
+        ed.commit();
+    }
+
     private void hideStudentMenuItem() {
         navigationView1 = (NavigationView) findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView1.getMenu();
@@ -238,6 +252,15 @@ public class Introduction extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(enablingGPS){
+            enablingGPS = false;
+            getLocation();
+        }
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 5) {
@@ -247,43 +270,7 @@ public class Introduction extends AppCompatActivity
                 if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                //locationManager.requestLocationUpdates(mprovider, 1500000, 1, this);
-                locationManager.requestSingleUpdate(mprovider,this, Looper.getMainLooper());
-                //location = locationManager.getLastKnownLocation(mprovider);
-                location = locationManager.getLastKnownLocation(mprovider);
-
-                Log.v("Error Location", "" + location);
-
-
-                if (location != null) {
-                    onLocationChanged(location);
-                    sourcelatitude = Float.parseFloat(String.valueOf(location.getLatitude()));
-                    sourcelongitude = Float.parseFloat(String.valueOf(location.getLongitude()));
-
-                } else if (location == null)
-                // Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
-                {
-                    Log.v("Error ", "No location Found");
-                    new MaterialDialog.Builder(this)
-                            .title("Turn On GPS Location")
-                            .content("Turn on GPS location press Yes")
-                            .positiveText("YES")
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(MaterialDialog dialog, DialogAction which) {
-                                    // TODO
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivity(intent);
-
-                                }
-                            }).negativeText("NO").onNegative(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            md.dismiss();
-                        }
-                    }).show();
-
-                }
+                getLocation();
 
             } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
@@ -447,8 +434,20 @@ public void onTokenRefresh() {
 
     @Override
     public void onLocationChanged(Location location) {
+        this.location = location;
+        if(location!=null) {
+            Log.d("LOCATION111", location.getLatitude() + " " + location.getLongitude());
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(Introduction.this);
+            SharedPreferences.Editor ed = sharedPrefs.edit();
 
+            ed.putFloat("sourcelatitude", sourcelatitude);
+            ed.putFloat("sourcelongitude", sourcelongitude);
+            ed.commit();
+        }
+            else
+                Log.d("ERROR111","null");
 
+        loading.dismiss();
     }
 
     @Override
