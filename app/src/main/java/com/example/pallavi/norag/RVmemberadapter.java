@@ -28,8 +28,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;

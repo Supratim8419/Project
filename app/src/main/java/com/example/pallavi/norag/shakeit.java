@@ -41,18 +41,26 @@ public class shakeit extends AppWidgetProvider {
            // int appWidgetId = appWidgetIds[i];
 
             // Create an Intent to launch ExampleActivity
-            Intent intent = new Intent(context, SensorService.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
 
             // Get the layout for the App Widget and attach an on-click listener
             // to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.shakeit);
-            views.setOnClickPendingIntent(R.id.shake, pendingIntent);
+         //   views.setOnClickPendingIntent(R.id.shake, getPendingIntent(views.));
 
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
+    }
+
+    private PendingIntent getPendingIntent(Context context, boolean s) {
+        Intent intent = new Intent(context, SensorService.class);
+        if(s)
+            intent.setAction("on");
+        else intent.setAction("off");
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        return pendingIntent;
     }
 
     @Override

@@ -39,8 +39,6 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.MapFragment;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Request;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONException;
