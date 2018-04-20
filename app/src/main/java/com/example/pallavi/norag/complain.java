@@ -1,5 +1,6 @@
 package com.example.pallavi.norag;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -177,6 +180,9 @@ String requesturl,data,s1;
 
 
                                 rvad=new RVcomplainadapter(ccd,getActivity());
+                                final Context ctx=rv.getContext();
+                                LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(ctx, R.anim.layout_animation_fall_down);
+                                rv.setLayoutAnimation(animation);
                                 rv.setAdapter(rvad);
                                 ItemTouchHelper.Callback callback =
                                         new SimpleItemTouchHelperCallback(rvad);

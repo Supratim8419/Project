@@ -1,5 +1,6 @@
 package com.example.pallavi.norag;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
@@ -17,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -576,6 +579,10 @@ public class members extends Fragment {
 
                                 //Snackbar.make(cl,"Successfull",Snackbar.LENGTH_SHORT).show();
                                rvmd=new RVmemberadapter(cmd,getActivity());
+                                final Context ctx=rv.getContext();
+                                LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(ctx, R.anim.layout_animation_fall_down);
+
+                                rv.setLayoutAnimation(animation);
                                 rv.setAdapter(rvmd);
 
 

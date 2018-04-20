@@ -20,11 +20,14 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -72,6 +75,11 @@ public class Introduction extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         code = getIntent().getExtras().getInt("code");
 
+        //Code for Transition
+       // TransitionInflater tf=TransitionInflater.from(Introduction.this);
+       // Transition t=tf.inflateTransition(R.transition.transition);
+      //  getWindow().setExitTransition(t);
+
         loading = new MaterialDialog.Builder(this).progress(true, 0)
                 .content("Fetching location...Please wait...")
                 .autoDismiss(false)
@@ -81,6 +89,8 @@ public class Introduction extends AppCompatActivity
             Fragment fragment = new Home();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -95,6 +105,8 @@ public class Introduction extends AppCompatActivity
             Fragment fragment = new complain();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -341,6 +353,8 @@ public void onTokenRefresh() {
             Fragment fragment=new members();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -351,6 +365,8 @@ public void onTokenRefresh() {
             Fragment fragment=new Home();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -361,6 +377,8 @@ public void onTokenRefresh() {
             Fragment fragment=new complain();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -371,6 +389,8 @@ public void onTokenRefresh() {
             Fragment fragment=new Student();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -381,6 +401,8 @@ public void onTokenRefresh() {
             Fragment fragment=new About();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -389,8 +411,12 @@ public void onTokenRefresh() {
            // Intent notificationpage = new Intent(Introduction.this, notification.class);
             //startActivity(notificationpage);
             Fragment fragment=new notification();
+            //ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(fragment.getActivity(),null);
+            //compat.toBundle();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            //fragmentTransaction.setCustomAnimations(R.animator.fade_in,R.animator.fade_in);
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
             fragmentTransaction.replace(R.id.introduction, fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();

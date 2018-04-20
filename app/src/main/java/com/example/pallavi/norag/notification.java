@@ -1,6 +1,7 @@
 package com.example.pallavi.norag;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -13,10 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -51,6 +55,10 @@ public class notification extends Fragment {
                          Bundle savedInstanceState) {
        final View view= inflater.inflate(R.layout.notifcation_main, container, false);
        // Log.v("The notification  ","Yes it is true");
+      //  Slide s=new Slide();
+      //  s.setDuration(1000);
+       // getActivity().getWindow().setEnterTransition(s);
+
         baseurl=getString(R.string.base_url);
         final MaterialDialog mate=new MaterialDialog.Builder(getActivity())
                 .title("No-Rag")
@@ -166,8 +174,13 @@ public class notification extends Fragment {
 
                                     }
                                     rvnd=new RVnotificationAdapter(cnd,getActivity(),cl);
+
+                                    final Context ctx=rnv.getContext();
+                                    LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(ctx, R.anim.layout_animation_fall_down);
+
+                                    rnv.setLayoutAnimation(animation);
                                     rnv.setAdapter(rvnd);
-                                    Log.v("conm","shcjs");
+                                    //Log.v("conm","shcjs");
                                 }
 
                             }
