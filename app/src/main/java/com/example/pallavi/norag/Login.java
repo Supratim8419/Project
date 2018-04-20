@@ -16,11 +16,14 @@ package com.example.pallavi.norag;
         import android.support.v4.app.ActivityOptionsCompat;
         import android.support.v4.content.ContextCompat;
         import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.CardView;
         import android.transition.Slide;
         import android.transition.Transition;
         import android.transition.TransitionInflater;
         import android.util.Log;
         import android.view.View;
+        import android.view.animation.Animation;
+        import android.view.animation.AnimationUtils;
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.LinearLayout;
@@ -50,12 +53,15 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Slide s=new Slide();
-        s.setDuration(500);
-        getWindow().setEnterTransition(s);
-        TransitionInflater tf=TransitionInflater.from(this);
-        Transition t=tf.inflateTransition(R.transition.activitytransition);
-        getWindow().setExitTransition(t);
+        //Slide s=new Slide();
+        //s.setDuration(500);
+        //getWindow().setEnterTransition(s);
+        //TransitionInflater tf=TransitionInflater.from(this);
+        //Transition t=tf.inflateTransition(R.transition.activitytransition);
+        //getWindow().setExitTransition(t);
+        CardView cv =(CardView)findViewById(R.id.cav);
+        Animation bottomToTop = AnimationUtils.loadAnimation(this, R.anim.top_to_bottom);
+        cv.startAnimation(bottomToTop);
         sp = PreferenceManager.getDefaultSharedPreferences(Login.this);
         sessionid = sp.getInt("studentsessionid", -1);
        // Toast.makeText(Login.this,""+sessionid,Toast.LENGTH_SHORT).show();
@@ -69,9 +75,9 @@ public class Login extends AppCompatActivity {
                     new View.OnClickListener(){
                         public void  onClick(View v){
                             Intent intent=new Intent(Login.this, Register.class);
-                            ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
-                            startActivity(intent,compat.toBundle());
-                            //startActivity(intent);
+                            //ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
+                            //startActivity(intent,compat.toBundle());
+                            startActivity(intent);
 
                         }}
             );
@@ -82,11 +88,11 @@ public class Login extends AppCompatActivity {
         else
         {
             Intent introductionpage=new Intent(Login.this,Introduction.class);
-            ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
+            //ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
 
             introductionpage.putExtra("code",1);
-            startActivity(introductionpage,compat.toBundle());
-            //startActivity(introductionpage);
+            //startActivity(introductionpage,compat.toBundle());
+            startActivity(introductionpage);
             Login.this.finish();
         }
     }
@@ -203,10 +209,10 @@ public class Login extends AppCompatActivity {
                                                         ed.commit();
 
                                                         Intent intent=new Intent(Login.this,Introduction.class);
-                                                        ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
+                                                       // ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
                                                         intent.putExtra("code",1);
-                                                        startActivity(intent,compat.toBundle());
-                                                        //startActivity(intent);
+                                                       // startActivity(intent,compat.toBundle());
+                                                        startActivity(intent);
                                                         Login.this.finish();
                                                     } else if (response_data == 2) {
                                                         //Toast.makeText(Login.this, "Password does not match", Toast.LENGTH_SHORT).show();
@@ -237,85 +243,6 @@ public class Login extends AppCompatActivity {
                 //}
 
             });
-
-               /* Toast.makeText(MainActivity.this,"entered Register",Toast.LENGTH_LONG).show();
-                bt2.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(MainActivity.this,"clicked signup",Toast.LENGTH_LONG).show();
-
-                                Email = (EditText) findViewById(R.id.email2);
-                                Password = (EditText) findViewById(R.id.input_password2);
-
-                                e=Email.getText().toString();
-                                p=Password.getText().toString();
-                                //Toast.makeText(MainActivity.this,"Usename is"+u,Toast.LENGTH_LONG).show();
-                                Thread t = new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        data = "{\"email\":\"" + e + "\",\"password\":\"" + p + "\"}";
-                                        Log.v("THE REQUESTED DATA IS ", data);
-                                        OkHttpClient client = new OkHttpClient();
-                                        Request request = new Request.Builder()
-                                                .url("http://www.palzone.ml/service_pallavi/login.php")
-                                                .post(RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), data))
-                                                .build();
-                                        client.newCall(request).enqueue(new Callback() {
-                                            @Override
-                                            public void onFailure(Call call, final IOException e) {
-                                                MainActivity.this.runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Log.v("ON FAILURE ","CLIENT REQUEST NOT SENT ");
-                                                        Toast.makeText(MainActivity.this, "client request not sent", Toast.LENGTH_LONG).show();
-                                                    }
-                                                });
-
-                                            }
-
-                                            @Override
-                                            public void onResponse(Call call, final Response response) throws IOException {
-                                                s1 = response.body().string();
-                                                final String s2;
-                                                s2 = s1.substring(s1.indexOf('[')+1, s1.length() - 1);
-                                                try {
-                                                    jo = new JSONObject(s2);
-                                                } catch (JSONException e1) {
-                                                    e1.printStackTrace();
-                                                }
-
-                                                Log.v("THe response is:", s1);
-                                                MainActivity.this.runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        try {
-                                                            int statusResponse = Integer.parseInt(String.valueOf(jo.getInt("response_data")));
-                                                            if (statusResponse == 5)
-                                                                Toast.makeText(MainActivity.this, "login successful", Toast.LENGTH_LONG).show();
-                                                            else if (statusResponse == 6)
-                                                                Toast.makeText(MainActivity.this, "password not matched", Toast.LENGTH_SHORT).show();
-                                                            else if (statusResponse == 7)
-                                                                Toast.makeText(MainActivity.this, "Email does not exists", Toast.LENGTH_LONG).show();
-                                                            else if (statusResponse == 8)
-                                                                Toast.makeText(MainActivity.this, "missing some field", Toast.LENGTH_LONG).show();
-
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-                                                });
-
-                                            }
-                                        });
-
-
-                                    }
-                                });
-                                t.start();
-                            }
-                        }
-                );*/
 
         }
 

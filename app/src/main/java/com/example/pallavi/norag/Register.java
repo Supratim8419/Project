@@ -8,11 +8,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,12 +47,15 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Slide s=new Slide();
-        s.setDuration(500);
-        getWindow().setEnterTransition(s);
-        TransitionInflater tf=TransitionInflater.from(this);
-        Transition t=tf.inflateTransition(R.transition.activitytransition);
-        getWindow().setExitTransition(t);
+       // Slide s=new Slide();
+        //s.setDuration(500);
+        //getWindow().setEnterTransition(s);
+        //TransitionInflater tf=TransitionInflater.from(this);
+        //Transition t=tf.inflateTransition(R.transition.activitytransition);
+        //getWindow().setExitTransition(t);
+        CardView cv =(CardView)findViewById(R.id.cav);
+        Animation bottomToTop = AnimationUtils.loadAnimation(this, R.anim.top_to_bottom);
+        cv.startAnimation(bottomToTop);
         baseurl=getString(R.string.base_url);
         bt3=(Button)findViewById(R.id.btn_signup1);
         // Email = (EditText) findViewById(R.id.email);
@@ -151,9 +157,10 @@ public class Register extends AppCompatActivity {
                                                                 @Override
                                                                 public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                                                                    Intent registerintent = new Intent(Register.this,Login.class);
-                                                                    ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Register.this,null);
-                                                                    Register.this.startActivity(registerintent,compat.toBundle());
+                                                                    Intent loginpage = new Intent(Register.this,Login.class);
+                                                                   // ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Register.this,null);
+                                                                    //Register.this.startActivity(registerintent,compat.toBundle());
+                                                                    Register.this.startActivity(loginpage);
                                                                     Register.this.finish();
                                                                 }
                                                             }, SPLASH_DISPLAY_LENGTH);
