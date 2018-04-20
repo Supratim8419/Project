@@ -12,8 +12,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +46,12 @@ public class AuthorityLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authority_login);
+        Slide s=new Slide();
+        s.setDuration(500);
+        getWindow().setEnterTransition(s);
+        TransitionInflater tf=TransitionInflater.from(this);
+        Transition t=tf.inflateTransition(R.transition.activitytransition);
+        getWindow().setExitTransition(t);
         bt2 = (Button) findViewById(R.id.btn_login);
        // bt1 = (Button) findViewById(R.id.btn_signup);
 
@@ -62,9 +72,12 @@ public class AuthorityLogin extends AppCompatActivity {
         else
         {
             Intent introductionpage=new Intent(AuthorityLogin.this,Introduction.class);
+            ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(AuthorityLogin.this,null);
+
             //Intent intent=new Intent(Login.this,Introduction.class);
             introductionpage.putExtra("code",1);
-            startActivity(introductionpage);
+            startActivity(introductionpage,compat.toBundle());
+            // startActivity(introductionpage);
             AuthorityLogin.this.finish();
         }
 
@@ -195,8 +208,11 @@ public class AuthorityLogin extends AppCompatActivity {
                                                     ed.putInt("authoritysessionid",userid);
                                                     ed.commit();
                                                     Intent intent=new Intent(AuthorityLogin.this,Introduction.class);
+                                                    ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(AuthorityLogin.this,null);
+
                                                     intent.putExtra("code",1);
-                                                    startActivity(intent);
+                                                    startActivity(intent,compat.toBundle());
+                                                    //startActivity(intent);
                                                     AuthorityLogin.this.finish();
                                                 } else if (response_data == 2) {
                                                     //Toast.makeText(AuthorityLogin.this, "Password does not match", Toast.LENGTH_SHORT).show();

@@ -13,8 +13,12 @@ package com.example.pallavi.norag;
         import android.preference.PreferenceManager;
         import android.support.design.widget.CoordinatorLayout;
         import android.support.design.widget.Snackbar;
+        import android.support.v4.app.ActivityOptionsCompat;
         import android.support.v4.content.ContextCompat;
         import android.support.v7.app.AppCompatActivity;
+        import android.transition.Slide;
+        import android.transition.Transition;
+        import android.transition.TransitionInflater;
         import android.util.Log;
         import android.view.View;
         import android.widget.Button;
@@ -46,6 +50,12 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Slide s=new Slide();
+        s.setDuration(500);
+        getWindow().setEnterTransition(s);
+        TransitionInflater tf=TransitionInflater.from(this);
+        Transition t=tf.inflateTransition(R.transition.activitytransition);
+        getWindow().setExitTransition(t);
         sp = PreferenceManager.getDefaultSharedPreferences(Login.this);
         sessionid = sp.getInt("studentsessionid", -1);
        // Toast.makeText(Login.this,""+sessionid,Toast.LENGTH_SHORT).show();
@@ -59,7 +69,9 @@ public class Login extends AppCompatActivity {
                     new View.OnClickListener(){
                         public void  onClick(View v){
                             Intent intent=new Intent(Login.this, Register.class);
-                            startActivity(intent);
+                            ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
+                            startActivity(intent,compat.toBundle());
+                            //startActivity(intent);
 
                         }}
             );
@@ -70,8 +82,11 @@ public class Login extends AppCompatActivity {
         else
         {
             Intent introductionpage=new Intent(Login.this,Introduction.class);
+            ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
+
             introductionpage.putExtra("code",1);
-            startActivity(introductionpage);
+            startActivity(introductionpage,compat.toBundle());
+            //startActivity(introductionpage);
             Login.this.finish();
         }
     }
@@ -188,8 +203,10 @@ public class Login extends AppCompatActivity {
                                                         ed.commit();
 
                                                         Intent intent=new Intent(Login.this,Introduction.class);
+                                                        ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
                                                         intent.putExtra("code",1);
-                                                        startActivity(intent);
+                                                        startActivity(intent,compat.toBundle());
+                                                        //startActivity(intent);
                                                         Login.this.finish();
                                                     } else if (response_data == 2) {
                                                         //Toast.makeText(Login.this, "Password does not match", Toast.LENGTH_SHORT).show();

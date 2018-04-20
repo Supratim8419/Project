@@ -26,6 +26,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
@@ -72,7 +73,14 @@ public class Introduction extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Slide s=new Slide();
+        s.setDuration(500);
+        getWindow().setEnterTransition(s);
+        TransitionInflater tf=TransitionInflater.from(this);
+        Transition t=tf.inflateTransition(R.transition.activitytransition);
+        getWindow().setExitTransition(t);
         code = getIntent().getExtras().getInt("code");
 
         //Code for Transition

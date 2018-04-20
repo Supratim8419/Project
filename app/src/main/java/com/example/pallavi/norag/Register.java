@@ -1,10 +1,16 @@
 package com.example.pallavi.norag;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,10 +39,17 @@ public class Register extends AppCompatActivity {
     String data,s1,e,r,p,cp,baseurl,requestedurl;
     JSONObject jo;
     int flag=0;int c1,c2,ind1,ind2;
+    private final int SPLASH_DISPLAY_LENGTH = 3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Slide s=new Slide();
+        s.setDuration(500);
+        getWindow().setEnterTransition(s);
+        TransitionInflater tf=TransitionInflater.from(this);
+        Transition t=tf.inflateTransition(R.transition.activitytransition);
+        getWindow().setExitTransition(t);
         baseurl=getString(R.string.base_url);
         bt3=(Button)findViewById(R.id.btn_signup1);
         // Email = (EditText) findViewById(R.id.email);
@@ -120,7 +133,7 @@ public class Register extends AppCompatActivity {
                                                 e1.printStackTrace();
                                             }
 
-                                            Log.v("THe response is:", s1);
+                                            Log.v("The response is:", s1);
                                             Register.this.runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
@@ -134,6 +147,16 @@ public class Register extends AppCompatActivity {
                                                             View sbView = sn.getView();
                                                             sbView.setBackgroundColor(ContextCompat.getColor(Register.this, R.color.myblue));
                                                             sn.show();
+                                                            new Handler().postDelayed(new Runnable(){
+                                                                @Override
+                                                                public void run() {
+                /* Create an Intent that will start the Menu-Activity. */
+                                                                    Intent registerintent = new Intent(Register.this,Login.class);
+                                                                    ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Register.this,null);
+                                                                    Register.this.startActivity(registerintent,compat.toBundle());
+                                                                    Register.this.finish();
+                                                                }
+                                                            }, SPLASH_DISPLAY_LENGTH);
                                                         }
                                                         else if (statusResponse == 2)
                                                            // Toast.makeText(Register.this, "password not matched", Toast.LENGTH_SHORT).show();
