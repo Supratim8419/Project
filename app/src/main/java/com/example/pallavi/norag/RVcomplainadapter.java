@@ -390,11 +390,11 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
 
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position1, long id) {
 
                 if (userSelect)
                 {
-                    String newstatus = holder.spinnerstatus.getAdapter().getItem(position).toString();
+                    String newstatus = holder.spinnerstatus.getAdapter().getItem(position1).toString();
                     // String newstatus=holder.spinnerstatus.getOnItemSelectedListener().toString();
                     //String newstatus="";
                     int cid=c.get(position).cid;
@@ -499,8 +499,8 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
 
         holder.spinnervote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String newvoting = holder.spinnervote.getAdapter().getItem(position).toString();
+            public void onItemClick(AdapterView<?> parent, View view, int position1, long id) {
+                String newvoting = holder.spinnervote.getAdapter().getItem(position1).toString();
                 int cid=c.get(position).cid;
                 SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(main);
                 int sessionid=sp.getInt("authoritysessionid",-1);
@@ -542,7 +542,11 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                                             try {
                                                 int cid=jsonObject.getInt("cid");
                                                 String status=jsonObject.getString("voting");
+                                                int totalvotes=jsonObject.getInt("totalvotes");
+                                                String severity=jsonObject.getString("severity");
                                                 holder.votemystatus.setText(status+" star given");
+                                                holder.totalvotetv.setText(""+totalvotes);
+                                                holder.severity.setText(""+severity);
                                                 Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Vote Successfully Given", Snackbar.LENGTH_LONG);
                                                 sn.setActionTextColor(Color.MAGENTA);
                                                 View sbView = sn.getView();

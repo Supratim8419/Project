@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +43,7 @@ public class Register extends AppCompatActivity {
     EditText Cpassword;
     String data,s1,e,r,p,cp,baseurl,requestedurl;
     JSONObject jo;
+    MaterialDialog mate;
     int flag=0;int c1,c2,ind1,ind2;
     private final int SPLASH_DISPLAY_LENGTH = 3000;
     @Override
@@ -58,6 +61,11 @@ public class Register extends AppCompatActivity {
         cv.startAnimation(bottomToTop);
         baseurl=getString(R.string.base_url);
         bt3=(Button)findViewById(R.id.btn_signup1);
+        mate=new MaterialDialog.Builder(Register.this)
+                .title("No-Rag")
+                .content("Please Wait While You Are Redirected")
+                .progress(true, 0)
+                .build();
         // Email = (EditText) findViewById(R.id.email);
       //  register();
         Toast.makeText(Register.this,"entered Register",Toast.LENGTH_LONG).show();
@@ -66,14 +74,24 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(Register.this, "clicked signup", Toast.LENGTH_LONG).show();
-                        Rollno = (EditText) findViewById(R.id.rollno);
-                        Email = (EditText) findViewById(R.id.email);
-                        Password = (EditText) findViewById(R.id.input_password);
-                        Cpassword = (EditText) findViewById(R.id.input_cpassword1);
-                        r = Rollno.getText().toString();
-                        e = Email.getText().toString();
-                        p = Password.getText().toString();
-                        cp = Cpassword.getText().toString();
+
+                            Rollno = (EditText) findViewById(R.id.rollno);
+                            Email = (EditText) findViewById(R.id.email);
+                            Password = (EditText) findViewById(R.id.input_password);
+                            Cpassword = (EditText) findViewById(R.id.input_cpassword1);
+                            r = Rollno.getText().toString();
+                            e = Email.getText().toString();
+                            p = Password.getText().toString();
+                            cp = Cpassword.getText().toString();
+
+                        if (r.equalsIgnoreCase("") || p.equalsIgnoreCase("") || e.equalsIgnoreCase("") ||cp.equalsIgnoreCase(""))
+                        {
+                            Toast.makeText(Register.this,"Please provide all the details",Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        else
+                            mate.show();
 
                         boolean b= Pattern.matches("[a-zA-Z0-9+._%-+]{1,256}" +
                                 "@" +
@@ -115,6 +133,7 @@ public class Register extends AppCompatActivity {
                                                 public void run() {
                                                     //Log.v("ON FAILURE ", "CLIENT REQUEST NOT SENT ");
                                                   //  Toast.makeText(Register.this, "Network Failure", Toast.LENGTH_LONG).show();
+                                                    mate.dismiss();
                                                     Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
                                                     sn.setActionTextColor(Color.MAGENTA);
                                                     View sbView = sn.getView();
@@ -148,6 +167,7 @@ public class Register extends AppCompatActivity {
                                                         if (statusResponse == 1)
                                                         //    Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_LONG).show();
                                                         {
+                                                            mate.dismiss();
                                                             Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Registration done successfully", Snackbar.LENGTH_LONG);
                                                             sn.setActionTextColor(Color.MAGENTA);
                                                             View sbView = sn.getView();
@@ -168,6 +188,7 @@ public class Register extends AppCompatActivity {
                                                         else if (statusResponse == 2)
                                                            // Toast.makeText(Register.this, "password not matched", Toast.LENGTH_SHORT).show();
                                                         {
+                                                            mate.dismiss();
                                                             Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Password does not match", Snackbar.LENGTH_LONG);
                                                             sn.setActionTextColor(Color.MAGENTA);
                                                             View sbView = sn.getView();

@@ -116,13 +116,22 @@ public class Login extends AppCompatActivity {
                 public void onClick(View v) {
                     wait = 1;
                  //   Toast.makeText(Login.this, "login pressed"+wait, Toast.LENGTH_LONG).show();
-                    mate.show();
 
-                    Rollno = (EditText) findViewById(R.id.rollno);
-                    Password = (EditText) findViewById(R.id.input_password2);
-                    r = Rollno.getText().toString();
-                    p = Password.getText().toString();
-                    /*boolean b=Pattern.matches("[a-zA-Z0-9+._%-+]{1,256}" +
+
+                        Rollno = (EditText) findViewById(R.id.rollno);
+                        Password = (EditText) findViewById(R.id.input_password2);
+                        r = Rollno.getText().toString();
+                        p = Password.getText().toString();
+                        mate.show();
+                    if (r.equalsIgnoreCase("") || p.equalsIgnoreCase(""))
+                    {
+                        Toast.makeText(Login.this,"Please provide all the details",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else
+                        mate.show();
+
+                         /*boolean b=Pattern.matches("[a-zA-Z0-9+._%-+]{1,256}" +
                             "@" +
                             "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
                             "(" +

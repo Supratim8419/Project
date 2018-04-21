@@ -107,12 +107,23 @@ public class AuthorityLogin extends AppCompatActivity {
                     wait = 1;
                   //  Toast.makeText(AuthorityLogin.this, "login pressed"+wait, Toast.LENGTH_LONG).show();
 
-                    mate.show();
-                    Email = (EditText) findViewById(R.id.email);
-                    Password = (EditText) findViewById(R.id.password);
-                    e = Email.getText().toString();
-                    p = Password.getText().toString();
-                    /*boolean b=Pattern.matches("[a-zA-Z0-9+._%-+]{1,256}" +
+
+
+                        Email = (EditText) findViewById(R.id.email);
+                        Password = (EditText) findViewById(R.id.password);
+                        e = Email.getText().toString();
+                        p = Password.getText().toString();
+
+                    if (e.equalsIgnoreCase("") || p.equalsIgnoreCase(""))
+                    {
+                        Toast.makeText(AuthorityLogin.this,"Please provide all the details",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else
+                        mate.show();
+
+
+                        /*boolean b=Pattern.matches("[a-zA-Z0-9+._%-+]{1,256}" +
                             "@" +
                             "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
                             "(" +

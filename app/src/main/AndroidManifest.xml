@@ -35,7 +35,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="com.example.pallavi.norag.Login" />
 
@@ -44,7 +46,9 @@
         </activity>
         <activity
             android:name=".Register"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="com.example.pallavi.norag.Register" />
 
@@ -84,15 +88,23 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".AuthorityLogin" />
-        <activity android:name=".Splash">
+        <activity android:name=".AuthorityLogin"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+        <activity
+            android:name=".Splash"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Signin" />
+        <activity
+            android:name=".Signin"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".complain"
             android:label="@string/title_activity_complain"
@@ -116,7 +128,10 @@
         </receiver>
 
         <activity android:name=".members" />
-        <activity android:name=".signinas" />
+        <activity
+            android:name=".signinas"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

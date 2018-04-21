@@ -88,8 +88,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng destination = new LatLng(destinationlatitude, destinationlongitude);
         DrawRouteMaps.getInstance(this)
                 .draw(source, destination, mMap);
-        DrawMarker.getInstance(this).draw(mMap, source, R.drawable.marker_a, "Origin Location");
-        DrawMarker.getInstance(this).draw(mMap, destination, R.drawable.marker_b, "Destination Location");
+        DrawMarker.getInstance(this).draw(mMap, source, R.drawable.marker_a, "Student Location");
+        DrawMarker.getInstance(this).draw(mMap, destination, R.drawable.marker_b, "Authority Location");
 
         LatLngBounds bounds = new LatLngBounds.Builder()
                 .include(source)
