@@ -16,12 +16,12 @@ public class cardcomplaindata {
     String date;
     String status;
     int totalvote;
-    int myvote;
+    String myvote;
     float latitude;
     float longitude;
 
 
-    cardcomplaindata(float latitude,float longitude,int cid,int sid,String severity_of_punishment,String student_name,String mobile_no,String g_mobile_no,String complain_txt, String attachment,String date,String status,int totalvote,int myvote)
+    cardcomplaindata(float latitude,float longitude,int cid,int sid,String severity_of_punishment,String student_name,String mobile_no,String g_mobile_no,String complain_txt, String attachment,String date,String status,int totalvote,String myvote)
     {
         this.latitude=latitude;
         this.longitude=longitude;

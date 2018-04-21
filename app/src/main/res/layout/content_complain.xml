@@ -9,28 +9,135 @@
     android:background="@drawable/gradient">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@drawable/rounded_corner"
         android:clipToPadding="false"
         card_view:cardCornerRadius="2dp"
-        card_view:cardElevation="2dp"
-        android:layout_weight="1"
-        android:id="@+id/cav"
-        >
+        card_view:cardElevation="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="4dp"
             android:orientation="vertical"
-            >
+            android:padding="4dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-               <!-- <RelativeLayout
+                <!-- <RelativeLayout
+                     android:layout_width="0dp"
+                     android:layout_weight="1"
+                     android:layout_height="wrap_content"
+                     android:gravity="center">
+
+                     <ImageButton
+                         android:layout_height="50dp"
+                         android:layout_width="50dp"
+                         android:layout_marginTop="5dp"
+                         android:id="@+id/complainimageButton"
+                         android:scaleType="fitCenter"
+                         android:layout_alignParentLeft="true"
+                         android:layout_alignParentStart="false"
+                         android:src="@drawable/g"
+                         android:layout_alignParentEnd="false"
+                         android:background="#000000" />
+                 </RelativeLayout>-->
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+
+
+                        android:paddingRight="2dp"
+                        android:text="Complain ID"
+                        android:textColor="#000" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:paddingTop="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+                        android:text="Complainee"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#000" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <!--<Spinner
+                        android:id="@+id/spinnerstatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_arrow_drop_down_black_24dp"
+
+                        android:entries="@array/status"
+
+                        >
+
+                    </Spinner> -->
+
+                    <ImageButton
+                        android:id="@+id/deletecomplain"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_delete_black_24dp" />
+                </RelativeLayout>
+                <!-- <RelativeLayout
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+
+                     android:gravity="center"
+                     >
+                     <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                         android:id="@+id/spinnerstatus"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:hint="Action"
+                         android:textColorHint="#05ab9a"
+                         app:met_floatingLabel="normal"
+
+                         />
+                 </RelativeLayout>-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <!-- <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -51,281 +158,398 @@
 
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    >
+                    android:layout_weight="1"
+                    android:gravity="center">
+
                     <TextView
+                        android:id="@+id/cid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="name"
+
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:paddingRight="2dp"
+                        android:text="ID is" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:paddingRight="40dp">
+
+                    <TextView
                         android:id="@+id/complainusername"
-
-                        android:paddingEnd="5dp"
-                        android:paddingStart="5dp" />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-
-                    android:gravity="center"
-                    >
-
-                </RelativeLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:visibility="gone"
-                    android:id="@+id/cid" />
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    >
-                    <!--<ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_delete_black_24dp"
-                        android:id="@+id/adeletebtn"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
 
-                        />-->
-                    <LinearLayout
+                        android:text="name"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </RelativeLayout>
+
+
+                <!-- <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:gravity="center"
+                    >
+                    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                        android:id="@+id/spinnerstatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <RelativeLayout
-                                     android:layout_width="0dp"
-                                     android:layout_height="wrap_content"
-                                     android:layout_weight="1"
-                                     android:gravity="center"
-                                     >
-                             <LinearLayout
-                                 android:layout_width="match_parent"
-                                 android:layout_height="wrap_content"
-                                 android:orientation="horizontal"
-                                 >
-                                 <RelativeLayout
-                                     android:layout_width="0dp"
-                                     android:layout_weight="1"
-                                     android:layout_height="wrap_content"
-                                     android:gravity="center"
-                                     >
-                                 <TextView
-                                 android:id="@+id/status"
-                                 android:layout_width="match_parent"
-                                 android:layout_height="wrap_content"
-                                 android:text="Status"
-                                     android:layout_alignParentTop="true"
-                                     android:layout_alignParentStart="true" />
-                                 </RelativeLayout>
-                                 <RelativeLayout
-                                     android:layout_width="0dp"
-                                     android:layout_height="wrap_content"
-                                     android:layout_weight="1"
-                                     android:gravity="center"
-                                     >
-                                     <Spinner
-                                         android:id="@+id/spinnerstatus"
-                                         android:layout_width="wrap_content"
-                                         android:layout_height="wrap_content"
-                                         android:background="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:hint="Action"
+                        android:textColorHint="#05ab9a"
+                        app:met_floatingLabel="normal"
 
-                                         android:entries="@array/status"
+                        />
+                </RelativeLayout>-->
 
-                                         >
-
-                                     </Spinner>
-                                     <!--<com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                                         android:id="@+id/spinnerstatus"
-                                         android:layout_width="wrap_content"
-                                         android:layout_height="wrap_content"
-                                         android:hint="Material Design Spinner"
-                                         android:textColorHint="#05ab9a"
-                                         app:met_floatingLabel="normal"
-                                         android:entries="@array/status"
-                                         />-->
-                                     <ImageButton
-                                         android:layout_width="wrap_content"
-                                         android:layout_weight="1"
-
-                                         android:layout_height="wrap_content"
-                                         android:id="@+id/deletecomplain"
-                                         android:src="@drawable/ic_delete_black_24dp"
-                                         android:layout_alignParentTop="true"
-                                         android:layout_centerHorizontal="true" />
-                                   </RelativeLayout>
-
-                             </LinearLayout>
-                                 </RelativeLayout>
             </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            >
-                            <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/statustxt"
-                                    android:text="Status Is"
-                                    />
-                            </RelativeLayout>
-                        </LinearLayout>
 
-
-
-
-
-                    </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:id="@+id/complaintxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Complain is" />
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
+
                     android:gravity="center">
 
-
-                    <TextView
+                    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                        android:id="@+id/spinnerstatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Share"
-                        android:id="@+id/sharetv"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
 
-                        android:paddingEnd="5dp"
-                        android:paddingStart="5dp" />
+
+                        android:hint="Take Action"
+                        android:textColorHint="#05ab9a" />
                 </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center">
 
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Vote it"
-                        android:id="@+id/votetv"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-
-                        android:paddingEnd="5dp"
-                        android:paddingStart="5dp" />
-                </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:paddingTop="5dp"
                     >
+
+
                     <TextView
+                        android:id="@+id/statustxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:text="Status" />
+
+                </RelativeLayout>
+            </LinearLayout>
+            <!--   <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center">
+
+                    <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Complain is" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current Status" />
+                </RelativeLayout>
+            </LinearLayout> -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/complaintxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Complain is"
+                        android:textColor="#000" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="1dp"
+                android:paddingTop="5dp">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <TextView
+
+                        android:id="@+id/myvotetv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+                        android:text="My Vote"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Open in Map"
-                        android:id="@+id/openmaptv"
+                        android:textColor="#000" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+
+                        android:text="Total Vote"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#000" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
 
                         android:paddingEnd="5dp"
                         android:paddingStart="5dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true" />
+                        android:text="Punishment Level"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#000" />
                 </RelativeLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="1dp">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/votemystatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vote Not given" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:id="@+id/totalvotetv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+
+                        android:text=""
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/severity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+                        android:text="Level"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:id="@+id/sharetv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+
+                        android:text="Share"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#000" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:id="@+id/votetv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+
+                        android:text="Vote it"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#000" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/openmaptv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp"
+                        android:text="Open in Map"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#000" />
+                </RelativeLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/authoritylayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    >
+                    android:gravity="center">
 
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
                         android:id="@+id/sharebtn"
-                        android:src="@drawable/ic_share_black_24dp"
-                        android:scaleType="fitXY"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="#0000"
                         android:padding="5dp"
-                        />
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_share_black_24dp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        >
-                    <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:id="@+id/votebtn"
-                        android:src="@drawable/ic_star_black_24dp"
-                        android:scaleType="fitXY"
-                        android:background="#0000"
-                        android:padding="5dp"
+                    android:gravity="center">
 
-                        android:layout_centerHorizontal="true" />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        >
-                    <Spinner
+                        android:orientation="horizontal">
+
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center">
+                            <!--<Spinner
                         android:id="@+id/spinnervote"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -335,29 +559,38 @@
 
                         >
 
-                    </Spinner>
-                    </RelativeLayout>
-                </LinearLayout>
+                    </Spinner>-->
+                            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                                android:id="@+id/spinnervote"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:hint="Vote"
+                                android:textColorHint="#05ab9a" />
+                        </RelativeLayout>
+                    </LinearLayout>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    >
+                    android:gravity="center">
+
                     <ImageButton
+                        android:id="@+id/mapbtn"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:id="@+id/mapbtn"
-                        android:src="@drawable/ic_my_location_black_24dp"
-                        android:scaleType="fitXY"
-                        android:padding="5dp"
-                        android:background="#0000"
-
-                        android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="26dp"
                         android:layout_marginRight="26dp"
-                        android:layout_marginEnd="26dp" />
+
+                        android:background="#0000"
+                        android:padding="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_my_location_black_24dp" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

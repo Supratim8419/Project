@@ -23,9 +23,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -166,9 +168,10 @@ String requesturl,data,s1;
                                         float longitude=Float.parseFloat(jsonObject.getString("longitude"));
 
                                         int totalvote=jsonObject.getInt("totalvotes");
-                                        //int myvote=jsonObject.getInt("myvote");
+                                        String myvote=jsonObject.getString("myvote");
+
                                         //int unlikeqbtn=0;
-                                        int myvote=0;
+                                        //int myvote=0;
                                         //cd.add(i,new carddata(userpic2,id,quserid,ques,questionaskname,nooflike,noofunlike,noofanswers,statuslike,statusunlike,sessionuserid,follow,editqbtn,likeqbtn,unlikeqbtn));
                                         ccd.add(i,new cardcomplaindata(latitude,longitude,cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
 
@@ -180,6 +183,7 @@ String requesturl,data,s1;
 
 
                                 rvad=new RVcomplainadapter(ccd,getActivity());
+
                                 final Context ctx=rv.getContext();
                                 LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(ctx, R.anim.layout_animation_fall_down);
                                 rv.setLayoutAnimation(animation);
