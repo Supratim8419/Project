@@ -117,6 +117,7 @@ public class About extends Fragment {
         {
             requesturl=baseurl+"showdetails/";
             sessionid=sharedPref.getInt("authoritysessionid", -1);
+
             data="{\"sessionid\":\""+sessionid+"\"}";
         }
         Thread th=new Thread(new Runnable() {

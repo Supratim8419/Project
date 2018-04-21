@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
@@ -38,6 +39,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.maps.MapFragment;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
@@ -52,6 +54,7 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
@@ -80,12 +83,12 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
     String answerid,message;
     String quesid;
     String ansid,s1;
-    int sessionid,s;
+    int sessionid,s,studentid;
     int check = 0;
     boolean userSelect=false;
     String data,requesturl,baseurl;
     String res;
-    JSONObject jsonObject;
+    JSONObject jsonObject,jo;
     boolean wait=true;
     Intent replypage;
     Context context=null;
@@ -167,6 +170,112 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
         holder.totalvotetv.setText(String.valueOf(c.get(position).totalvote));
         holder.severity.setText(c.get(position).severity_of_punishment);
         check=0;
+
+        holder.complainusername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requesturl=baseurl+"showstudentdetail/";
+                sessionid=c.get(position).sid;
+                data="{\"sessionid\":\""+sessionid+"\"}";
+                Thread th=new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        OkHttpClient client=new OkHttpClient();
+                        Request request = new Request.Builder()
+                                .url(requesturl)
+                                .post(RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), data))
+                                .build();
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                main.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                        sn.setActionTextColor(Color.MAGENTA);
+                                        View sbView = sn.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
+                                        sn.show();
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                try {
+                                    s1 = response.body().string();
+                                } catch (Exception e2) {
+                                    e2.printStackTrace();
+
+                                }
+                                Log.v("THE JSON OBJ IS CREATED", s1);
+
+                                //  final String s2 = s1.substring(s1.indexOf('[') + 1, s1.length() - 1);
+                                //s1.substring(s1.indexOf('[')+1, s1.length() - 1);
+
+                                try {
+                                 jo = new JSONObject(s1);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                               main.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        try {
+                                           MaterialDialog md=new MaterialDialog.Builder(main)
+                                                    .title("Student Details")
+                                                    .customView(R.layout.sheet_student,true)
+                                                    .positiveText("Cancel")
+                                                    .show();
+                                            md.setCanceledOnTouchOutside(false);
+                                            Log.d("Checking","In faculty");
+                                            TextView nametxt=(TextView)md.findViewById(R.id.nametxt);
+                                            TextView emailtxt=(TextView)md.findViewById(R.id.emailtxt);
+                                            TextView phonetxt=(TextView)md.findViewById(R.id.phonenotxt);
+                                            TextView gphonetxt=(TextView)md.findViewById(R.id.gphonenotxt);
+                                            TextView rollnotxt=(TextView)md.findViewById(R.id.rollnotxt);
+                                            TextView addresstxt=(TextView)md.findViewById(R.id.addresstxt);
+                                            //TextView branchtxt=(TextView)md.findViewById(R.id.branchtxt);
+
+
+                                                String name = jo.getString("name");
+                                                String phoneno = jo.getString("mobile_no");
+                                                String email = jo.getString("email");
+                                                String address = jo.getString("address");
+                                                String rollno = jo.getString("roll_no");
+                                                String gphoneno=jo.getString("g_mobile_no");
+                                                nametxt.setText(name);
+                                                phonetxt.setText(phoneno);
+                                                gphonetxt.setText(gphoneno);
+                                                emailtxt.setText(email);
+                                                rollnotxt.setText(rollno);
+                                                addresstxt.setText(address);
+
+
+
+                                        }
+                                        catch (JSONException e1) {
+                                            e1.printStackTrace();
+
+
+                                        }
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+                th.start();
+
+            }
+        });
+
         holder.mapbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,7 +321,11 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                                 main.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(main,"Network Failure",Toast.LENGTH_SHORT);
+                                        Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                        sn.setActionTextColor(Color.MAGENTA);
+                                        View sbView = sn.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
+                                        sn.show();
                                         //  cl=(CoordinatorLayout)rv.findViewById(R.id.coordinatorlayout);
 
                                     }
@@ -462,7 +575,24 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
             }
         });
 
-        holder.sharebtn.setOnClickListener(new View.OnClickListener() {
+  holder.sharebtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+          String helptext=c.get(position).complain_txt;
+          Float geolatitude=c.get(position).latitude;
+          Float geolongitude=c.get(position).longitude;
+          String uri = "https://maps.google.com/maps?saddr=" +geolatitude+","+geolongitude;
+         // String uri="geo:" + geolatitude + "," +geolongitude + "?q=" + geolatitude+ "," + geolongitude;
+          Intent sendIntent = new Intent();
+          sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+          sendIntent.setType("text/plain");
+          sendIntent.putExtra(Intent.EXTRA_TEXT, helptext+"\n"+uri);
+          //sendIntent.putExtra(Intent.EXTRA_SUBJECT,helptext);
+          main.startActivity(sendIntent);
+      }
+  });
+        /*      holder.sharebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int newcid=c.get(position).cid;
@@ -559,7 +689,7 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                 th.start();
 
             }
-        });
+        });*/
         /*
         holder.answerusername.setText(c.get(position).answerusername);
         holder.answer.loadDataWithBaseURL("", c.get(position).answer, "text/html", "UTF-8", "");

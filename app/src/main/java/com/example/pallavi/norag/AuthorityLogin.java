@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.AutoScrollHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.transition.Slide;
@@ -26,6 +27,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +47,7 @@ public class AuthorityLogin extends AppCompatActivity {
     Button bt1,bt2;
     EditText Email,Password;int c1=0;int c2=0;int ind1,ind2;int userid,roleasid;
     String baseurl;
+    MaterialDialog mate;
     String e,p;String data,requestedurl;String s1;JSONObject jo;int response_data;int wait=0;SharedPreferences sp;int sessionid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,12 @@ public class AuthorityLogin extends AppCompatActivity {
         CardView cv =(CardView)findViewById(R.id.cav);
         Animation bottomToTop = AnimationUtils.loadAnimation(this, R.anim.top_to_bottom);
         cv.startAnimation(bottomToTop);
+        mate=new MaterialDialog.Builder(AuthorityLogin.this)
+                .title("No-Rag")
+                .content("Please Wait While You Are Redirected")
+                .progress(true, 0)
+                .build();
+        mate.setCanceledOnTouchOutside(false);
          sp = PreferenceManager.getDefaultSharedPreferences(AuthorityLogin.this);
         sessionid = sp.getInt("authoritysessionid", -1);
        // Toast.makeText(AuthorityLogin.this,"sadasda"+sessionid,Toast.LENGTH_SHORT).show();
@@ -97,7 +107,7 @@ public class AuthorityLogin extends AppCompatActivity {
                     wait = 1;
                   //  Toast.makeText(AuthorityLogin.this, "login pressed"+wait, Toast.LENGTH_LONG).show();
 
-
+                    mate.show();
                     Email = (EditText) findViewById(R.id.email);
                     Password = (EditText) findViewById(R.id.password);
                     e = Email.getText().toString();
@@ -139,6 +149,7 @@ public class AuthorityLogin extends AppCompatActivity {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
+
                             Log.v("PALLAVI", "ENTERED NEW THREAD");
                             data = "{\"email\":\"" + e + "\",\"password\":\"" + p + "\"}";
                             Log.v("THE REQUESTED DATA IS:", data);
@@ -212,12 +223,14 @@ public class AuthorityLogin extends AppCompatActivity {
                                                     userid=Integer.parseInt(String.valueOf(jo.getInt("sessionid")));
                                                     ed.putInt("authoritysessionid",userid);
                                                     ed.commit();
+                                                    mate.dismiss();
                                                     Intent intent=new Intent(AuthorityLogin.this,Introduction.class);
                                                     //ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(AuthorityLogin.this,null);
 
                                                     intent.putExtra("code",1);
                                                     //startActivity(intent,compat.toBundle());
                                                     startActivity(intent);
+                                                    //intent.putExtra("code",1);
                                                     AuthorityLogin.this.finish();
                                                 } else if (response_data == 2) {
                                                     //Toast.makeText(AuthorityLogin.this, "Password does not match", Toast.LENGTH_SHORT).show();
@@ -226,8 +239,10 @@ public class AuthorityLogin extends AppCompatActivity {
                                                     View sbView = sn.getView();
                                                     sbView.setBackgroundColor(ContextCompat.getColor(AuthorityLogin.this, R.color.myblue));
                                                     sn.show();
+                                                    mate.dismiss();
                                                 }
                                                 wait = 0;
+
                                             } catch (JSONException e1) {
                                                 e1.printStackTrace();
                                                 wait = 0;

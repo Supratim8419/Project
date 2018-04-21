@@ -29,6 +29,8 @@ package com.example.pallavi.norag;
         import android.widget.LinearLayout;
         import android.widget.Toast;
 
+        import com.afollestad.materialdialogs.MaterialDialog;
+
         import org.json.JSONException;
         import org.json.JSONObject;
 
@@ -48,6 +50,7 @@ public class Login extends AppCompatActivity {
     String baseurl;
     String requestedurl;
     CoordinatorLayout cl;
+    MaterialDialog mate;
     String r,p;String data;String s1;JSONObject jo;int response_data;int wait=0;SharedPreferences sp;int sessionid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,13 @@ public class Login extends AppCompatActivity {
         //TransitionInflater tf=TransitionInflater.from(this);
         //Transition t=tf.inflateTransition(R.transition.activitytransition);
         //getWindow().setExitTransition(t);
+        mate=new MaterialDialog.Builder(Login.this)
+                .title("No-Rag")
+                .content("Please Wait While You Are Redirected")
+                .progress(true, 0)
+                .build();
+        mate.setCanceledOnTouchOutside(false);
+
         CardView cv =(CardView)findViewById(R.id.cav);
         Animation bottomToTop = AnimationUtils.loadAnimation(this, R.anim.top_to_bottom);
         cv.startAnimation(bottomToTop);
@@ -106,7 +116,7 @@ public class Login extends AppCompatActivity {
                 public void onClick(View v) {
                     wait = 1;
                  //   Toast.makeText(Login.this, "login pressed"+wait, Toast.LENGTH_LONG).show();
-
+                    mate.show();
 
                     Rollno = (EditText) findViewById(R.id.rollno);
                     Password = (EditText) findViewById(R.id.input_password2);
@@ -207,9 +217,14 @@ public class Login extends AppCompatActivity {
                                                         userid=Integer.parseInt(String.valueOf(jo.getInt("sessionid")));
                                                         ed.putInt("studentsessionid",userid);
                                                         ed.commit();
-
+                                                        mate.dismiss();
                                                         Intent intent=new Intent(Login.this,Introduction.class);
                                                        // ActivityOptionsCompat compat=ActivityOptionsCompat.makeSceneTransitionAnimation(Login.this,null);
+                                                        Snackbar sn=Snackbar.make(findViewById(R.id.coordinatorlayout),"Please Wait till Login", Snackbar.LENGTH_LONG);
+                                                        sn.setActionTextColor(Color.MAGENTA);
+                                                        View sbView = sn.getView();
+                                                        sbView.setBackgroundColor(ContextCompat.getColor(Login.this, R.color.myblue));
+                                                        sn.show();
                                                         intent.putExtra("code",1);
                                                        // startActivity(intent,compat.toBundle());
                                                         startActivity(intent);
@@ -221,6 +236,7 @@ public class Login extends AppCompatActivity {
                                                         View sbView = sn.getView();
                                                         sbView.setBackgroundColor(ContextCompat.getColor(Login.this, R.color.myblue));
                                                         sn.show();
+                                                        mate.dismiss();
                                                     }
                                                     wait = 0;
                                                 } catch (JSONException e1) {
