@@ -76,7 +76,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Student" />
+        <activity android:name=".Student"
+            android:parentActivityName=".Splash"
+            />
         <activity android:name=".Authority" />
 
         <service

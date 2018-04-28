@@ -150,26 +150,7 @@ public class SensorService extends Service implements SensorEventListener, Locat
             }
 */
             boolean wrapInScrollView = true;
-        /*    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-            Log.v("Check Location Manager",locationManager.toString());
-          //  mprovider = locationManager.getBestProvider(criteria, false);
-            mprovider=locationManager.NETWORK_PROVIDER;
-            Log.v("Check Mprovider",mprovider.toString());
-            if (mprovider != null && !mprovider.equals("")) {
-                if (android.support.v4.app.ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && android.support.v4.app.ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                location = locationManager.getLastKnownLocation(mprovider);
-                Log.v("Check Location",location.toString());
-                locationManager.requestLocationUpdates(mprovider, 15000, 1, this);
 
-                if (location != null)
-                    onLocationChanged(location);
-                else
-                    Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
-            }
-          */
             sp= PreferenceManager.getDefaultSharedPreferences(SensorService.this);
             roleid=sp.getInt("role",-1);
             if (roleid==1)
@@ -182,7 +163,7 @@ public class SensorService extends Service implements SensorEventListener, Locat
             //additionaltext=sp.getString("helptext","");
             //Intent newintent = new Intent(getApplicationContext(), SensorService.class);
             //additionaltext=newintent.getExtras().getString("helptext");
-            Log.v("Sensor additional Text","ad");
+            Log.v("Sensor additional Text",additionaltext);
 
 
             String attachment="No attachment";
