@@ -1,67 +1,54 @@
 package com.example.pallavi.norag;
 
+import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class shakeit extends AppWidgetProvider {
 
-
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.shakeit);
-        //views.setTextViewText(R.id.shake, widgetText);
-        // Instruct the widget manager to update the widget
-        //PendingIntent intent
-       // views.setOnClickPendingIntent(R.id.shake);
-       // final Button shake=find
-        Intent intent = new Intent(context, SensorService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.shake,pendingIntent);
-      //  views.
-        appWidgetManager.updateAppWidget(appWidgetId, views);
-
-    }
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
+        boolean serviceRunning = isMyServiceRunning(SensorService.class, context);
 
         for (int appWidgetId : appWidgetIds) {
-           // int appWidgetId = appWidgetIds[i];
-
-            // Create an Intent to launch ExampleActivity
-
-
-            // Get the layout for the App Widget and attach an on-click listener
-            // to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.shakeit);
-         //   views.setOnClickPendingIntent(R.id.shake, getPendingIntent(views.));
 
+            Intent newIntent = new Intent(context, SensorService.class);
+            newIntent.setAction("START");
+            PendingIntent pendingIntent = PendingIntent.getService(context, 0, newIntent, 0);
+
+            Intent newIntent2 = new Intent(context, SensorService.class);
+            newIntent2.setAction("STOP");
+            PendingIntent pendingIntent2 = PendingIntent.getService(context, 0, newIntent2, 0);
+
+            views.setOnClickPendingIntent(R.id.notshake, pendingIntent2);
+            views.setOnClickPendingIntent(R.id.shake,pendingIntent);
+            if(serviceRunning) {
+                views.setViewVisibility(R.id.shake, View.GONE);
+                views.setViewVisibility(R.id.notshake, View.VISIBLE);
+            }
+            else{
+                views.setViewVisibility(R.id.shake, View.VISIBLE);
+                views.setViewVisibility(R.id.notshake, View.GONE);
+            }
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
-            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
-    private PendingIntent getPendingIntent(Context context, boolean s) {
-        Intent intent = new Intent(context, SensorService.class);
-        if(s)
-            intent.setAction("on");
-        else intent.setAction("off");
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        return pendingIntent;
-    }
 
     @Override
     public void onEnabled(Context context) {
@@ -73,5 +60,16 @@ public class shakeit extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass,  Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 

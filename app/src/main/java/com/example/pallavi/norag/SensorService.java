@@ -3,6 +3,8 @@ package com.example.pallavi.norag;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +28,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -60,6 +63,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.widget.Toast.LENGTH_LONG;
+import static com.example.pallavi.norag.Utils.context;
+
 
 public class SensorService extends Service implements SensorEventListener, LocationListener {
 
@@ -91,6 +97,30 @@ public class SensorService extends Service implements SensorEventListener, Locat
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        //Log.d("MYTAG", intent.getAction()+"");
+try {
+    if (intent.getAction() != null && intent.getAction().equals("STOP")) {
+
+        stopSelf();
+        Intent intent1 = new Intent(this, shakeit.class);
+        intent1.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+        int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), shakeit.class));//.getAppWidgetI‌​ds(new ComponentName(getApplication(), shakeit.class));
+        intent1.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent1);
+    } else {
+        Intent intent1 = new Intent(this, shakeit.class);
+        intent1.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+        int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), shakeit.class));//.getAppWidgetI‌​ds(new ComponentName(getApplication(), shakeit.class));
+        intent1.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent1);
+    }
+}
+catch (Exception e)
+{
+    e.printStackTrace();
+}
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -98,12 +128,19 @@ public class SensorService extends Service implements SensorEventListener, Locat
                 SensorManager.SENSOR_DELAY_UI, new Handler());
 
         active = false;
-        additionaltext=intent.getStringExtra("helptext");
-        if (additionaltext==null)
+        try{
+            additionaltext=intent.getStringExtra("helptext");
+            Log.v("Sensor additional Text",additionaltext);
+        }
+        catch (Exception e)
+        {
             additionaltext="";
+            Log.v("Sensor additional Text",additionaltext);
+        }
+
 
         //additionaltext=intent.getExtras().getString("helptext");
-        Log.v("Sensor additional Text",additionaltext);
+
 
         return START_STICKY;
 
@@ -125,7 +162,7 @@ public class SensorService extends Service implements SensorEventListener, Locat
         baseurl=getString(R.string.base_url);
 
 
-        if (mAccel > 13) {
+        if (mAccel > 11) {
             //showNotification();
             active=true;
             Log.v("Check","Sensor is working fine");
@@ -181,6 +218,7 @@ public class SensorService extends Service implements SensorEventListener, Locat
             data = "{\"text\":\"" + text + "\",\"attachment\":\"" + attachment + "\",\"latitude\":\"" + latitude + "\",\"longitude\":\"" + longitude + "\",\"sessionid\":\"" + sessionid + "\"}";
             if (wait==0)
             {
+                Log.v("MYTAG","Thread is getting called");
                 Thread th=new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -199,15 +237,33 @@ public class SensorService extends Service implements SensorEventListener, Locat
 
                                 Log.v("Check Error","Failure");
                                 wait=0;
-                                Student st=new Student();
-                                //Snackbar sn=Snackbar.make(st.getActivity().findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
-                                Snackbar sn=Snackbar.make(Student.layout,"Network Failure", Snackbar.LENGTH_LONG);
-                                sn.setActionTextColor(Color.MAGENTA);
-                                View sbView = sn.getView();
-                                sbView.setBackgroundColor(ContextCompat.getColor(st.getActivity(), R.color.myblue));
-                                sn.show();
+                            //    Intent newIntent = new Intent(getApplicationContext(), SensorService.class);
+                               // if ((newIntent.getAction()!=null || newIntent.getAction()==null) && (newIntent.getAction().equals("STOP") || newIntent.getAction().equals("START"))) {
+                                   // Student st = new Student();
+                                   // Toast.makeText(st.getActivity(),"Network Failure", Toast.LENGTH_LONG).show();
+                                Handler handler = new Handler(Looper.getMainLooper());
+                                handler.post(new Runnable() {
 
-
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(),
+                                                "Network Failure",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                //Log.v("MYTAG","Service failed due to bad network");
+                                //}
+                               // else
+                                //    {
+                              /*      Student st = new Student();
+                                    //Snackbar sn=Snackbar.make(st.getActivity().findViewById(R.id.coordinatorlayout),"Network Failure", Snackbar.LENGTH_LONG);
+                                    Snackbar sn = Snackbar.make(Student.layout, "Network Failure", Snackbar.LENGTH_LONG);
+                                    sn.setActionTextColor(Color.MAGENTA);
+                                    View sbView = sn.getView();
+                                    sbView.setBackgroundColor(ContextCompat.getColor(st.getActivity(), R.color.myblue));
+                                    sn.show();
+                                */
+                               // }
 
                             }
 
@@ -223,16 +279,37 @@ public class SensorService extends Service implements SensorEventListener, Locat
                                 }
 
                                 try {
-                                    String successmessage=jsonObject.getString("message");
+                                    final String successmessage=jsonObject.getString("message");
                                     int returnstatus=jsonObject.getInt("return_status");
                                     Log.v("The success message is ",""+successmessage);
+                                    //Intent newIntent = new Intent(getApplicationContext(), SensorService.class);
+                              //      if((newIntent.getAction()!=null || newIntent.getAction()==null) && (newIntent.getAction().equals("STOP") || newIntent.getAction().equals("START")))
+                                //    {
+                                       // Student st = new Student();
+                                      //  Toast.makeText(st.getActivity(),successmessage, Toast.LENGTH_LONG).show();
+                                    Handler handler = new Handler(Looper.getMainLooper());
+                                    handler.post(new Runnable() {
 
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getApplicationContext(),
+                                                    successmessage,
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                        //Log.v("MYTAG","Service failed due to bad network");
+                                  //  }
 
-                                    Snackbar sn=Snackbar.make(Student.layout,successmessage, Snackbar.LENGTH_LONG);
-                                    sn.setActionTextColor(Color.MAGENTA);
-                                    View sbView = sn.getView();
-                                    sbView.setBackgroundColor(ContextCompat.getColor(getApplication(), R.color.myblue));
-                                    sn.show();
+                                 //   else
+                                   //     {
+                                    /*    Snackbar sn = Snackbar.make(Student.layout, successmessage, Snackbar.LENGTH_LONG);
+                                        sn.setActionTextColor(Color.MAGENTA);
+                                        View sbView = sn.getView();
+                                        sbView.setBackgroundColor(ContextCompat.getColor(getApplication(), R.color.myblue));
+                                        sn.show();
+                                    */
+                                    wait=0;
+                                    //}
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                           wait=0;

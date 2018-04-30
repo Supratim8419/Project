@@ -86,6 +86,7 @@ public class Student extends Fragment{
                     Intent newintent = new Intent(getActivity(), SensorService.class);
                     newintent.putExtra("helptext", text);
                     getActivity().startService(newintent);
+
                 }
             }
 
@@ -124,7 +125,7 @@ public class Student extends Fragment{
 
 
                 String attachment="No attachment";
-                String text1=additionaltext;
+                String text1=additionaltext.replaceAll("\\n","");;
 
                 Log.v("text",text1);
 
@@ -231,7 +232,6 @@ public class Student extends Fragment{
         Intent newintent = new Intent(getActivity(), SensorService.class);
         newintent.putExtra("helptext",text);
         getActivity().startService(newintent);
-
 
 
 
