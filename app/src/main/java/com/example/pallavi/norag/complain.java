@@ -3,6 +3,8 @@ package com.example.pallavi.norag;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.icu.text.DateFormat;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.constraint.solver.Cache;
@@ -34,7 +36,13 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.CacheControl;
@@ -162,13 +170,15 @@ String requesturl,data,s1;
                                         String g_mobile_no=jsonObject.getString("g_mobile_no");
                                         String complain_txt=jsonObject.getString("complain_txt");
                                         String attachment=jsonObject.getString("attachment");
-                                        String date=jsonObject.getString("date");
+                                        String newdate=jsonObject.getString("date");
+                                        String date=newdate.substring(0,newdate.indexOf('T'))+" "+newdate.substring(newdate.indexOf('T')+1,newdate.indexOf('.'));
+                                        //String date=String.valueOf(new DateTime())
                                         String status=jsonObject.getString("status");
                                         float latitude=Float.parseFloat(jsonObject.getString("latitude"));
                                         float longitude=Float.parseFloat(jsonObject.getString("longitude"));
 
                                         int totalvote=jsonObject.getInt("totalvotes");
-                                        String myvote=jsonObject.getString("myvote");
+                                        String myvote=String.valueOf(Integer.parseInt(jsonObject.getString("myvote")));
 
                                         //int unlikeqbtn=0;
                                         //int myvote=0;

@@ -20,6 +20,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -35,6 +37,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -150,23 +153,42 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
         {
             holder.mapbtn.setVisibility(View.GONE);
             holder.sharebtn.setVisibility(View.GONE);
-            holder.spinnervote.setVisibility(View.GONE);
+            //holder.spinnervote.setVisibility(View.GONE);
+            holder.ratingvote.setVisibility(View.GONE);
+            holder.llv.setVisibility(View.GONE);
+            holder.al.setVisibility(View.GONE);
             holder.spinnerstatus.setVisibility(View.GONE);
-            holder.sharetv.setVisibility(View.GONE);
-            holder.openmaptv.setVisibility(View.GONE);
-            holder.votetv.setVisibility(View.GONE);
-            holder.votemystatus.setVisibility(View.GONE);
+//            holder.sharetv.setVisibility(View.GONE);
+//            holder.openmaptv.setVisibility(View.GONE);
+       //     holder.votetv.setVisibility(View.GONE);
+          //  holder.votemystatus.setVisibility(View.GONE);
             holder.myvotetv.setVisibility(View.GONE);
          //   holder.votebtn.setVisibility(View.GONE);
-
+            holder.ratingvote.setVisibility(View.GONE);
             sessionid=sp.getInt("studentsessionid",-1);
 
         }
         holder.cid.setText(String.valueOf(c.get(position).cid));
         holder.complainusername.setText(String.valueOf(c.get(position).student_name));
         holder.complain.setText(c.get(position).complain_txt);
-        holder.status.setText("Status: "+c.get(position).status);
-        holder.votemystatus.setText(c.get(position).myvote+" star given");
+        holder.status.setText(""+c.get(position).status);
+       holder.complaindate.setText(""+c.get(position).date);
+        //holder.votemystatus.setText(c.get(position).myvote+" star given");
+ /*       if (c.get(position).myvote.equals("1"))
+            holder.votemystatus.setImageResource(R.drawable.rating1);
+        else if (c.get(position).myvote.equals("2"))
+            holder.votemystatus.setImageResource(R.drawable.rating2);
+        else if (c.get(position).myvote.equals("3"))
+            holder.votemystatus.setImageResource(R.drawable.rating3);
+        else if(c.get(position).myvote.equals("4"))
+            holder.votemystatus.setImageResource(R.drawable.rating4);
+        else if(c.get(position).myvote.equals("5"))
+            holder.votemystatus.setImageResource(R.drawable.rating5);
+        else
+            holder.votemystatus.setImageResource(R.drawable.rating);
+
+*/      holder.ratingvote.setRating(Float.parseFloat(c.get(position).myvote));
+
         holder.totalvotetv.setText(String.valueOf(c.get(position).totalvote));
         holder.severity.setText(c.get(position).severity_of_punishment);
         check=0;
@@ -453,7 +475,7 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                                                     int cid=jsonObject.getInt("cid");
                                                     String status=jsonObject.getString("status");
 
-                                                    holder.status.setText("Status: "+status);
+                                                    holder.status.setText(""+status);
                                                     //int unlikeqbtn=0;
                                                     Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Status Successfully updated", Snackbar.LENGTH_LONG);
                                                     sn.setActionTextColor(Color.MAGENTA);
@@ -496,88 +518,117 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
 
             }
         });
+        //holder.ratingvote.getOnRatingBarChangeListener()
+           //holder.ratingvote.getOnRatingBarChangeListener();
+            holder.ratingvote.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
-        holder.spinnervote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    //String newvoting = holder.spinnervote.getAdapter().getItem(position1).toString();
+                    //String newvoting=String.valueOf(holder.ratingvote.getRating());
+                    if(!fromUser)
+                        return;
 
-            public void onItemClick(AdapterView<?> parent, View view, int position1, long id) {
-                String newvoting = holder.spinnervote.getAdapter().getItem(position1).toString();
-                int cid=c.get(position).cid;
-                SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(main);
-                int sessionid=sp.getInt("authoritysessionid",-1);
-                Log.v("Voting",newvoting);
-                data = "{\"cid\":\"" + cid + "\",\"voting\":\"" + newvoting + "\",\"sessionid\":\"" + sessionid + "\"}";
-                requesturl=baseurl+"addvotingcomplain/";
-             //   if (newvoting!=null && ++check>1) {
+                    Log.v("Rating Bar","rating bar is selected");
+                    String newvoting=String.valueOf((int)rating);
+                    int cid=c.get(position).cid;
+                    SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(main);
+                    int sessionid=sp.getInt("authoritysessionid",-1);
+                    Log.v("Voting",newvoting);
+
+                    data = "{\"cid\":\"" + cid + "\",\"voting\":\"" + newvoting + "\",\"sessionid\":\"" + sessionid + "\"}";
+                    requesturl=baseurl+"addvotingcomplain/";
+
+
                     Thread th=new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.v("Thread","Thread is getting called");
-                            OkHttpClient client=new OkHttpClient();
-                            okhttp3.Request request = new okhttp3.Request.Builder()
-                                    .url(requesturl)
-                                    .post(RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), data))
-                                    .build();
-                            client.newCall(request).enqueue(new Callback() {
-                                @Override
-                                public void onFailure(Call call, IOException e) {
-                                    main.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(main,"error",Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                                @Override
-                                public void onResponse(Call call, Response response) throws IOException {
-                                    s1=response.body().string();
-                                    main.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Log.v("s1",s1);
-                                            try {
-                                                jsonObject =new JSONObject(s1);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                int cid=jsonObject.getInt("cid");
-                                                String status=jsonObject.getString("voting");
-                                                int totalvotes=jsonObject.getInt("totalvotes");
-                                                String severity=jsonObject.getString("severity");
-                                                holder.votemystatus.setText(status+" star given");
-                                                holder.totalvotetv.setText(""+totalvotes);
-                                                holder.severity.setText(""+severity);
-                                                Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Vote Successfully Given", Snackbar.LENGTH_LONG);
-                                                sn.setActionTextColor(Color.MAGENTA);
-                                                View sbView = sn.getView();
-                                                sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
-                                                sn.show();
-                                                //int unlikeqbtn=0;
-                                                //cd.add(i,new carddata(userpic2,id,quserid,ques,questionaskname,nooflike,noofunlike,noofanswers,statuslike,statusunlike,sessionuserid,follow,editqbtn,likeqbtn,unlikeqbtn));
-                                                //rvad.addelement(new cardcomplaindata(cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
-                                                // c.add(0,new cardcomplaindata(cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            //rvad=new RVcomplainadapter(c,main);
-                                            //notifyItemRangeChanged(0,c.size());
-                                            //  rv.setAdapter(rvad);
-                                            // Toast.makeText(main,"Successful in deleting answer",Toast.LENGTH_LONG).show();
-                                            //removeanswerAt(position);
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                    th.start();
-                //}
-            }
+            @Override
+            public void run() {
 
-            public void onNothingSelected(AdapterView<?> parent) {
-                //      holder.spinnerstatus.setSelection(0);
+                Log.v("Thread","Thread is getting called");
+
+                OkHttpClient client=new OkHttpClient();
+                okhttp3.Request request = new okhttp3.Request.Builder()
+                        .url(requesturl)
+                        .post(RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), data))
+                        .build();
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        main.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(main,"error",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        s1=response.body().string();
+                        main.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.v("s1",s1);
+                                try {
+                                    jsonObject =new JSONObject(s1);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    int cid=jsonObject.getInt("cid");
+                                    String voting=jsonObject.getString("voting");
+                                    int totalvotes=jsonObject.getInt("totalvotes");
+                                    String severity=jsonObject.getString("severity");
+                                    //holder.votemystatus.setText(status+" star given");
+                                           /* if (status.equals("1"))
+                                                holder.votemystatus.setImageResource(R.drawable.rating1);
+                                            else if (status.equals("2"))
+                                                holder.votemystatus.setImageResource(R.drawable.rating2);
+                                            else if (status.equals("3"))
+                                                holder.votemystatus.setImageResource(R.drawable.rating3);
+                                            else if(status.equals("4"))
+                                                holder.votemystatus.setImageResource(R.drawable.rating4);
+                                            else if(status.equals("5"))
+                                                holder.votemystatus.setImageResource(R.drawable.rating5);
+                                            */
+                                    holder.ratingvote.setRating(Float.parseFloat(voting));
+                                    holder.totalvotetv.setText(""+totalvotes);
+                                    holder.severity.setText(""+severity);
+                                    Snackbar sn=Snackbar.make(main.findViewById(R.id.coordinatorlayout), "Vote Successfully Given", Snackbar.LENGTH_LONG);
+                                    sn.setActionTextColor(Color.MAGENTA);
+                                    View sbView = sn.getView();
+                                    sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
+                                    sn.show();
+                                    //int unlikeqbtn=0;
+                                    //cd.add(i,new carddata(userpic2,id,quserid,ques,questionaskname,nooflike,noofunlike,noofanswers,statuslike,statusunlike,sessionuserid,follow,editqbtn,likeqbtn,unlikeqbtn));
+                                    //rvad.addelement(new cardcomplaindata(cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
+                                    // c.add(0,new cardcomplaindata(cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                //rvad=new RVcomplainadapter(c,main);
+                                //notifyItemRangeChanged(0,c.size());
+                                //  rv.setAdapter(rvad);
+                                // Toast.makeText(main,"Successful in deleting answer",Toast.LENGTH_LONG).show();
+                                //removeanswerAt(position);
+                            }
+                        });
+                    }
+                });
             }
         });
+        th.start();
+    }
+});
+        /*
+        holder.ratingvote.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+
+
+        });*/
 
   holder.sharebtn.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -758,15 +809,17 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
 
         //TextView noofanswer;
         ImageView personPhoto;
-        TextView complainusername,sharetv,votetv,openmaptv,votemystatus,totalvotetv,severity,myvotetv;
+        TextView complainusername,sharetv,votetv,openmaptv,totalvotetv,severity,myvotetv,complaindate;
+        AppCompatImageView votemystatus;
         //Spinner spinnervote;
         //Spinner spinnerstatus;
         TextView status;
-        MaterialBetterSpinner spinnerstatus,spinnervote;
+        MaterialBetterSpinner spinnerstatus;
+        RatingBar ratingvote;
         TextView complain;
         ImageButton sharebtn,mapbtn,deletebtn,votebtn;
         TextView cid;
-        LinearLayout ll;
+        LinearLayout llv,al;
         PersonViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cav);
@@ -774,26 +827,30 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
             // personPhoto=(ImageView)itemView.findViewById(R.id.complainimageButton);
             complainusername=(TextView)itemView.findViewById(R.id.complainusername);
             //spinnerstatus=(Spinner)itemView.findViewById(R.id.spinnerstatus);
-            spinnervote=(MaterialBetterSpinner)itemView.findViewById(R.id.spinnervote);
-            String[] votelist = {"1","2","3","4","5"};
-            ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(main,android.R.layout.simple_dropdown_item_1line, votelist);
-            spinnervote.setAdapter(arrayAdapter1);
+            //spinnervote=(MaterialBetterSpinner)itemView.findViewById(R.id.spinnervote);
 
+            //String[] votelist = {"1","2","3","4","5"};
+            //ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(main,android.R.layout.simple_dropdown_item_1line, votelist);
+            //spinnervote.setAdapter(arrayAdapter1);
+            ratingvote=(RatingBar)itemView.findViewById(R.id.ratingvote);
             status=(TextView)itemView.findViewById(R.id.statustxt);
             complain=(TextView)itemView.findViewById(R.id.complaintxt);
             sharebtn=(ImageButton)itemView.findViewById(R.id.sharebtn);
             mapbtn=(ImageButton)itemView.findViewById(R.id.mapbtn);
             deletebtn=(ImageButton)itemView.findViewById(R.id.deletecomplain);
             cid=(TextView)itemView.findViewById(R.id.cid);
-            sharetv=(TextView)itemView.findViewById(R.id.sharetv);
-            openmaptv=(TextView)itemView.findViewById(R.id.openmaptv);
-            votetv=(TextView)itemView.findViewById(R.id.votetv);
+            complaindate=(TextView)itemView.findViewById(R.id.complaindate);
+            // sharetv=(TextView)itemView.findViewById(R.id.sharetv);
+          //  openmaptv=(TextView)itemView.findViewById(R.id.openmaptv);
+          //  votetv=(TextView)itemView.findViewById(R.id.votetv);
                spinnerstatus= (MaterialBetterSpinner)itemView.findViewById(R.id.spinnerstatus);
             String[] SPINNERLIST = {"In Progress", "In DC", "Action taken"};
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(main,
                     simple_dropdown_item_1line, SPINNERLIST);
             spinnerstatus.setAdapter(arrayAdapter);
-            votemystatus=(TextView)itemView.findViewById(R.id.votemystatus);
+            al=(LinearLayout)itemView.findViewById(R.id.authoritylayout);
+            llv=(LinearLayout)itemView.findViewById(R.id.linearlayoutvote);
+           // votemystatus=(AppCompatImageView) itemView.findViewById(R.id.votemystatus);
             totalvotetv=(TextView)itemView.findViewById(R.id.totalvotetv);
             severity=(TextView)itemView.findViewById(R.id.severity);
            // votebtn=(ImageButton)itemView.findViewById(R.id.votebtn);

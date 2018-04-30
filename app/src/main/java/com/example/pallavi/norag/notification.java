@@ -42,7 +42,7 @@ import okhttp3.Response;
 public class notification extends Fragment {
     int sessionid,roleid,nsid,sid;
     String data;
-    String requesturl,baseurl;
+    String requesturl,baseurl,date;
     RecyclerView rnv;
     LinearLayoutManager lm;
     RVnotificationAdapter rvnd;
@@ -155,15 +155,22 @@ public class notification extends Fragment {
                                        if (roleid==1) {
                                             nsid = jsonObject.getInt("nsid");
                                             sid = jsonObject.getInt("sid");
+                                          // String newdate=jsonObject.getString("date");
+                                          //date=newdate.substring(0,newdate.indexOf(' '))+" "+newdate.substring(newdate.indexOf(' ')+1,newdate.indexOf('.'));
 
                                        }
                                         else if(roleid==2)
                                        {
                                             nsid = jsonObject.getInt("nid");
                                             sid = jsonObject.getInt("aid");
+
                                        }
-                                           String notification=jsonObject.getString("notification");
-                                            String date=jsonObject.getString("date");
+
+                                        String notification=jsonObject.getString("notification");
+                                        String newdate=jsonObject.getString("date");
+                                        date=newdate.substring(0,newdate.indexOf('T'))+" "+newdate.substring(newdate.indexOf('T')+1,newdate.indexOf('.'));
+
+                                        //String date=jsonObject.getString("date");
                                         //int noofnotification=jsonObject.getInt("noofnotification");
 
                                         //cd.add(i,new carddata(userpic2,id,quserid,ques,questionaskname,nooflike,noofunlike,noofanswers,statuslike,statusunlike,sessionuserid,follow,editqbtn,likeqbtn,unlikeqbtn));

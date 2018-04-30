@@ -32,11 +32,6 @@ dependencies {
     })
 
     // compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.7'
-    
-
-    
-
-
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
@@ -52,6 +47,7 @@ dependencies {
     //compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
     compile 'com.google.firebase:firebase-messaging:9.6.1'
    // compile 'com.flipboard:bottomsheet-core:1.5.3'
+
     compile 'com.github.clans:fab:1.6.2'
     compile 'com.github.ar-android:DrawRouteMaps:1.0.0'
     compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
@@ -59,15 +55,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     testCompile 'junit:junit:4.12'
 }
-
-
-
-
-
-
-
-
-
-
 
 apply plugin: 'com.google.gms.google-services'
