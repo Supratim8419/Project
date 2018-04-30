@@ -170,8 +170,8 @@ String requesturl,data,s1;
                                         String g_mobile_no=jsonObject.getString("g_mobile_no");
                                         String complain_txt=jsonObject.getString("complain_txt");
                                         String attachment=jsonObject.getString("attachment");
-                                        String newdate=jsonObject.getString("date");
-                                        String date=newdate.substring(0,newdate.indexOf('T'))+" "+newdate.substring(newdate.indexOf('T')+1,newdate.indexOf('.'));
+                                        String date=jsonObject.getString("date");
+                                        //String date=newdate.substring(0,newdate.indexOf('T'))+" "+newdate.substring(newdate.indexOf('T')+1,newdate.indexOf('.'));
                                         //String date=String.valueOf(new DateTime())
                                         String status=jsonObject.getString("status");
                                         float latitude=Float.parseFloat(jsonObject.getString("latitude"));
