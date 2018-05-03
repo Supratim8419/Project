@@ -41,7 +41,7 @@
             android:layout_marginTop="5sp"
             android:textAlignment="gravity"
             android:fontFamily="times new roman"
-            android:text="‘NoRag’ is a Smart Phone application.It aims at removal and elimination of ragging.If mobile shaken hard ,it sends help alerts to particular contacts.And the receiver can see  victim’s information  along with the location  .However,in order to confirm it waits for 2 minutes ,the sender can enter password in these 2 minutes and cancel the alert that was to be sent.The receiver sends  acknowledged message to the sender on receiving.The app contains settings to edit message and other details."
+            android:text="@string/app_text"
             android:textColor="#000000"
             android:textSize="15sp" />
 

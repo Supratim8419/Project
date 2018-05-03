@@ -65,12 +65,13 @@ String requesturl,data,s1;
     RVcomplainadapter rvad;
     String baseurl;
     CoordinatorLayout cl;
+    MaterialDialog mate;
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)  {
          view= inflater.inflate(R.layout.activity_complain, container, false);
-        final MaterialDialog mate=new MaterialDialog.Builder(getActivity())
+     mate=new MaterialDialog.Builder(getActivity())
                 .title("No-Rag")
                 .content("Please Wait While Complains are fetched")
                 .progress(true, 0)
@@ -184,9 +185,10 @@ String requesturl,data,s1;
                                         //int myvote=0;
                                         //cd.add(i,new carddata(userpic2,id,quserid,ques,questionaskname,nooflike,noofunlike,noofanswers,statuslike,statusunlike,sessionuserid,follow,editqbtn,likeqbtn,unlikeqbtn));
                                         ccd.add(i,new cardcomplaindata(latitude,longitude,cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
-
+                                        mate.dismiss();
                                     } catch (Exception e) {
                                         e.printStackTrace();
+                                        mate.dismiss();
                                     }
                                 }
 
@@ -206,8 +208,9 @@ String requesturl,data,s1;
 
 
                             }
+
                         });
-                    mate.dismiss();
+
                     }
                 });
             }

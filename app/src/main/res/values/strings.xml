@@ -59,5 +59,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_assddsaaa">Assddsaaa</string>
+    <string name="app_text">
+        ‘NoRag’ is a Smart Phone application.
+        It aims at removal and elimination of ragging.
+        If mobile shaken hard, it sends notifications of help alerts to the authority(members of Anti Ragging Committee) and the receiver can see  victim’s information  along with the location and the shortest route to reach the latter.
+        In addition to this, the authority gets the privilege to share any complaint along with the information about the victim’s location on any social media like ‘WhatsApp’.
+        Further, the app allows the authority to give votes to complaints and based on the its sum, can decide the severity of punishments.
+        The system of notifications keep both the parties victims and the authority up to date.
+    </string>
 
 </resources>

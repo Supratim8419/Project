@@ -52,7 +52,7 @@ public class MyService extends FirebaseMessagingService {
   int notificationId = new Random().nextInt(60000);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                .setContentTitle(remoteMessage.getData().get("title"))
+                .setContentTitle("Notification from No-Rag")
                 .setContentText(remoteMessage.getData().get("message"))
                 .setAutoCancel(true)
                 .setContentIntent(resultPendingIntent)

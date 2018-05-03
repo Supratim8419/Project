@@ -1,11 +1,16 @@
 package com.example.pallavi.norag;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -70,6 +75,15 @@ public class RVnotificationAdapter extends RecyclerView.Adapter<RVnotificationAd
         holder.notification.setText(c.get(position).notification);
         holder.nsid.setText(String.valueOf(c.get(position).nsid));
         holder.date.setText(String.valueOf(c.get(position).date));
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home=new Intent(main.getApplication(), com.example.pallavi.norag.Introduction.class);
+                home.putExtra("code",2);
+                main.startActivity(home);
+                //MapsActivity.this.finish();
+            }
+        });
         holder.delbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

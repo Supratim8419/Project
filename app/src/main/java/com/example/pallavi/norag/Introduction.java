@@ -58,7 +58,8 @@ public class Introduction extends AppCompatActivity
     LocationManager locationManager;
     String mprovider;
     String baseurl;
-    Location location;
+    Location location,newlocation;
+    LocationListener mlocListener;
     float sourcelatitude, sourcelongitude;
     NavigationView navigationView, navigationView1;
     MaterialDialog md, mdl;
@@ -204,23 +205,66 @@ public class Introduction extends AppCompatActivity
         mprovider = locationManager.getBestProvider(criteria, false);
         //mprovider=locationManager.NETWORK_PROVIDER;
         //mprovider = locationManager.PASSIVE_PROVIDER;
+      mlocListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+             //   loading.show();
+                Log.v("MYTAG","In onLocationChanged function");
+                //this.location = location;
+                if(location!=null) {
+                    Log.d("LOCATION111", location.getLatitude() + " " + location.getLongitude());
+                    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(Introduction.this);
+                    SharedPreferences.Editor ed = sharedPrefs.edit();
+                    sourcelatitude=Float.parseFloat(String.valueOf(location.getLatitude()));
+                    sourcelongitude=Float.parseFloat(String.valueOf(location.getLongitude()));
+                    ed.putFloat("sourcelatitude", sourcelatitude);
+                    ed.putFloat("sourcelongitude", sourcelongitude);
+                    ed.commit();
 
+                }
+                else if(location==null)
+                {
+                    Log.d("ERROR111","null");
+                 //   loading.show();
+                }
+                loading.dismiss();
+
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
         Log.v("Error Mprovider", mprovider+"");
 
         if (mprovider != null && !mprovider.equals("")) {
 
                 if(locationManager.isProviderEnabled(mprovider))
                 {
-                    location = locationManager.getLastKnownLocation(mprovider);
-                    if(location == null)
-                        locationManager.requestSingleUpdate(mprovider,this, Looper.myLooper());
-                    //
-                    else {
-                        //TODO Save location
-                        onLocationChanged(location);
-                        loading.dismiss();
 
-                    }
+                   // location = locationManager.getLastKnownLocation(mprovider);
+                    //locationManager.requestLocationUpdates(mprovider,0,0,mlocListener);
+                    locationManager.requestLocationUpdates(mprovider,2000,0,mlocListener);
+                    //if(location == null)
+                     //   locationManager.requestSingleUpdate(mprovider,this, Looper.myLooper());
+                    //else {
+                        //TODO Save location
+                     //   onLocationChanged(location);
+                      //  loading.dismiss();
+
+                    //}
 
                 }
                 else
