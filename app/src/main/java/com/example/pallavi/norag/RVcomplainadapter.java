@@ -598,6 +598,7 @@ public class RVcomplainadapter extends RecyclerView.Adapter<RVcomplainadapter.Pe
                                     View sbView = sn.getView();
                                     sbView.setBackgroundColor(ContextCompat.getColor(main, R.color.myblue));
                                     sn.show();
+
                                     //int unlikeqbtn=0;
                                     //cd.add(i,new carddata(userpic2,id,quserid,ques,questionaskname,nooflike,noofunlike,noofanswers,statuslike,statusunlike,sessionuserid,follow,editqbtn,likeqbtn,unlikeqbtn));
                                     //rvad.addelement(new cardcomplaindata(cid,sid,severity_of_punishment,student_name,mobile_no,g_mobile_no,complain_txt,attachment,date,status,totalvote,myvote));
